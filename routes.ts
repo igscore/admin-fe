@@ -11,7 +11,12 @@ export default [
         path: '/detail',
         component: '@/pages/detail',
       },
-      { exact: true, name: 'home', path: '*', component: '@/pages/home' },
+      {
+        exact: true,
+        name: 'login',
+        path: '/login',
+        component: '@/pages/login',
+      },
     ],
   },
 ];
