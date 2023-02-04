@@ -21,6 +21,7 @@ export default (props: any) => {
       }}
     >
       <ProLayout
+        loading
         locale="en-US"
         collapsed={false}
         collapsedButtonRender={false}
