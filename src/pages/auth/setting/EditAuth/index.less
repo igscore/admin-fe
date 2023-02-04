@@ -1,0 +1,41 @@
+.editAuth {
+  height: 100%;
+  .treeNode {
+    &:hover {
+      button.treeNodeEdit {
+        display: inline-block;
+      }
+    }
+    &.treeNodeDisabled {
+      :global(span.ant-tree-node-content-wrapper) {
+        > :global(span.ant-tree-iconEle) {
+          opacity: 0.4;
+        }
+      }
+      :global(span.ant-tree-title) {
+        > :global(span.ant-typography) {
+          opacity: 0.4;
+        }
+      }
+    }
+    .treeNodeEdit {
+      display: none;
+      margin-left: 3px;
+    }
+  }
+
+  :global(.ant-tree.ant-tree-directory) {
+    .treeNode {
+      &:global(.ant-tree-treenode-selected) {
+        &::before {
+          background: #bae7ff;
+        }
+        :global(span.ant-tree-node-content-wrapper) {
+          > :global(span.ant-tree-iconEle) {
+            color: rgba(0, 0, 0, 0.65);
+          }
+        }
+      }
+    }
+  }
+}

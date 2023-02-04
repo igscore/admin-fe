@@ -1,40 +1,114 @@
 {
+  "name": "tenant-admin",
+  "version": "1.0.0",
   "private": true,
+  "description": "YiQI OA System",
   "scripts": {
-    "start": "umi dev",
-    "build": "umi build",
-    "postinstall": "umi generate tmp",
-    "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
-    "test": "umi-test",
-    "test:coverage": "umi-test --coverage"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,jsx,less,md,json}": [
-      "prettier --write"
-    ],
-    "*.ts?(x)": [
-      "prettier --parser=typescript --write"
-    ]
+    "start": "cross-env REACT_APP_ENV=dev umi dev",
+    "start:dev-no-mock": "cross-env REACT_APP_ENV=dev MOCK=none umi dev",
+    "start:dev-no-ui": "cross-env UMI_UI=none umi dev",
+    "start:test": "cross-env REACT_APP_ENV=test umi dev",
+    "start:test-no-mock": "cross-env REACT_APP_ENV=test MOCK=none umi dev",
+    "dev": "npm run start:dev",
+    "build": "cross-env REACT_APP_ENV=prod umi build",
+    "test": "umi test",
+    "test:all": "node ./tests/run-tests.js",
+    "test:component": "umi test ./src/components",
+    "analyze": "cross-env ANALYZE=1 umi build",
+    "fetch:blocks": "pro fetch-blocks --branch antd@4 && npm run prettier",
+    "lint": "npm run lint:js && npm run lint:style && npm run lint:prettier",
+    "lint:fix": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src && npm run lint:style",
+    "lint:js": "eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src",
+    "lint:prettier": "prettier --check \"**/*\" --end-of-line auto",
+    "lint:style": "stylelint --fix \"src/**/*.less\" --syntax less",
+    "lint-staged": "lint-staged",
+    "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx ",
+    "prettier": "prettier -c --write \"**/*\"",
+    "tsc": "tsc"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.8.0",
-    "@ant-design/pro-components": "2.3.50",
-    "antd": "^5.1.2",
-    "react": "17.x",
-    "react-dom": "17.x",
-    "umi": "^3.5.36"
+    "@ant-design/colors": "^4.0.5",
+    "@ant-design/compatible": "^1.0.5",
+    "@ant-design/icons": "^4.1.0",
+    "@ant-design/pro-descriptions": "^1.5.1",
+    "@ant-design/pro-layout": "^6.0.0",
+    "@ant-design/pro-table": "^2.4.0",
+    "@types/lodash.isequal": "^4.5.5",
+    "antd": "^4.8.2",
+    "antd-img-crop": "^3.14.1",
+    "array-move": "^3.0.1",
+    "classnames": "^2.2.6",
+    "dva": "^2.6.0-beta.20",
+    "fuse.js": "^6.4.1",
+    "lodash": "^4.17.11",
+    "lodash.isequal": "^4.5.0",
+    "moment": "^2.24.0",
+    "omit.js": "^1.0.2",
+    "path-to-regexp": "2.4.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-helmet": "^5.2.1",
+    "react-sortable-hoc": "^1.11.0",
+    "umi": "^3.2.0",
+    "umi-request": "^1.2.19",
+    "use-merge-value": "^1.0.1"
   },
   "devDependencies": {
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@umijs/preset-react": "1.x",
-    "@umijs/test": "^3.5.36",
-    "lint-staged": "^10.0.7",
-    "prettier": "^2.2.0",
-    "typescript": "^4.1.2",
-    "yorkie": "^2.0.0"
+    "@ant-design/pro-cli": "^1.0.18",
+    "@commitlint/config-conventional": "^13.2.0",
+    "@types/case-sensitive-paths-webpack-plugin": "^2.1.4",
+    "@types/classnames": "^2.2.7",
+    "@types/express": "^4.17.0",
+    "@types/history": "^4.7.2",
+    "@types/jest": "^25.1.0",
+    "@types/lodash": "^4.14.144",
+    "@types/mockjs": "^1.0.2",
+    "@types/react": "^16.9.17",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-helmet": "^5.0.13",
+    "@umijs/fabric": "^2.2.2",
+    "@umijs/plugin-blocks": "^2.1.3",
+    "@umijs/preset-ant-design-pro": "^1.2.1",
+    "@umijs/preset-react": "^1.4.16",
+    "@umijs/preset-ui": "^2.1.12",
+    "case-sensitive-paths-webpack-plugin": "^2.3.0",
+    "chalk": "^3.0.0",
+    "cross-env": "^7.0.0",
+    "cross-port-killer": "^1.1.1",
+    "express": "^4.17.1",
+    "gh-pages": "^2.0.1",
+    "husky": "^4.0.7",
+    "jsdom-global": "^3.0.2",
+    "lint-staged": "^10.0.0",
+    "mockjs": "^1.1.0",
+    "node-fetch": "^2.6.0",
+    "prettier": "^2.0.1",
+    "puppeteer-core": "^4.0.1",
+    "roadhog-api-doc": "^1.1.2",
+    "stylelint": "^13.0.0"
+  },
+  "checkFiles": [
+    "src/**/*.js*",
+    "src/**/*.ts*",
+    "src/**/*.less",
+    "config/**/*.js*",
+    "scripts/**/*.js"
+  ],
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "post-merge": "yarn",
+      "post-checkout": "yarn",
+      "pre-commit": "npm run lint-staged",
+      "commit-msg": "commitlint -e $GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": "npm run lint-staged:js",
+    "**/*.{js,jsx,tsx,ts,less,md,json}": [
+      "prettier --write"
+    ]
   }
 }

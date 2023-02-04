@@ -1,0 +1,17 @@
+.settingTabs {
+  height: 100%;
+  &:global(.ant-tabs.ant-tabs-top) {
+    > :global(.ant-tabs-nav) {
+      margin-bottom: 0;
+      &::before {
+        width: 100%;
+      }
+      :global(.ant-tabs-nav-wrap) {
+        padding-left: 16px;
+      }
+    }
+  }
+  :global(.ant-tabs-content) {
+    height: 100%;
+  }
+}

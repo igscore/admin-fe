@@ -1,0 +1,64 @@
+.list {
+  width: 100%;
+  padding: 10px 10px 10px 0;
+  .itemColor {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+    border-radius: 4px;
+  }
+  .itemNormal,
+  .itemSelect {
+    flex: 1;
+    margin: 5px 0;
+    padding: 3px 10px;
+    border-radius: 2px;
+    cursor: pointer;
+    :global {
+      .ant-checkbox-checked .ant-checkbox-inner {
+        background-color: #108ee9;
+        border-color: #108ee9;
+      }
+    }
+  }
+  .itemSelect {
+    background-color: #2db7f5;
+
+    :global {
+      .ant-checkbox + span {
+        color: #fff;
+      }
+      .ant-checkbox-checked .ant-checkbox-inner::after {
+        border-color: #fff;
+      }
+    }
+  }
+}
+
+.events {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  :global {
+    .ant-badge-status {
+      width: 100%;
+      overflow: hidden;
+      font-size: 12px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.eventPanel {
+  max-height: 720px;
+  overflow: auto;
+  :global {
+    .ant-descriptions-row > th,
+    .ant-descriptions-row > td {
+      padding-bottom: 5px;
+    }
+  }
+}
