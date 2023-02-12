@@ -12,8 +12,8 @@ const App: React.FC = () => {
     console.log('Failed:', errorInfo);
   };
 
-  const [username, setName] = useState("")
-  const [password, setPassworrd] = useState("")
+  const [username, setName] = useState("admin")
+  const [password, setPassworrd] = useState("igscoreAdmin")
 
   const goToLogin = () => {
     goLogin({username, password})
@@ -34,7 +34,7 @@ const App: React.FC = () => {
             name="username"
             rules={[{ required: true, message: 'Please input your username!' }]}
           >
-            <Input onChange={(e) => {setName(e.target.value)}} />
+            <Input value={username} onChange={(e) => {setName(e.target.value)}} />
           </Form.Item>
 
           <Form.Item
@@ -42,7 +42,7 @@ const App: React.FC = () => {
             name="password"
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
-            <Input.Password onChange={(e) => {setPassworrd(e.target.value)}}  />
+            <Input.Password value={password} onChange={(e) => {setPassworrd(e.target.value)}}  />
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

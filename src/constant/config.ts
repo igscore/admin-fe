@@ -262,23 +262,19 @@ export const AdPositionList = [
 
 export const PlatformList = [
   {
-    value: '5',
-    label: 'All',
-  },
-  {
-    value: '1',
+    value: 'web',
     label: 'pc web',
   },
   {
-    value: '2',
+    value: 'mobile',
     label: 'mobile web',
   },
   {
-    value: '3',
+    value: 'ios',
     label: 'ios app',
   },
   {
-    value: '4',
+    value: 'android',
     label: 'android app',
   }
 ]
