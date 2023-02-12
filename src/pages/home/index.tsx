@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Space, Table, Tag, Button } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { RedoOutlined, PlusOutlined } from '@ant-design/icons';
+import { getAdList } from '@/model/api';
 
 interface DataType {
   key: string;
   name: string;
-  age: number;
-  address: string;
-  tags: string[];
+  id: number;
+  size: string;
+  image: string
 }
 
 const columns: ColumnsType<DataType> = [
@@ -19,41 +20,21 @@ const columns: ColumnsType<DataType> = [
     render: (text) => <a>{text}</a>,
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
+    title: 'Id',
+    dataIndex: 'id',
+    key: 'id',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
+    title: 'Image Url',
+    dataIndex: 'image',
+    key: 'image',
   },
   {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
-  },
-  {
-    title: 'Action',
+    title: 'Options',
     key: 'action',
     render: (_, record) => (
       <Space size="middle">
-        <a>Invite {record.name}</a>
+        <a>Edit</a>
         <a>Delete</a>
       </Space>
     ),
@@ -64,27 +45,31 @@ const data: DataType[] = [
   {
     key: '1',
     name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
+    id: 32,
+    size: 'New York No. 1 Lake Park',
+    image: '12'
   },
   {
     key: '2',
     name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
+    id: 42,
+    size: 'London No. 1 Lake Park',
+    image: '12'
   },
   {
     key: '3',
     name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
+    id: 32,
+    size: 'Sidney No. 1 Lake Park',
+    image: '12'
   },
 ];
 
 const App: React.FC = () => {
+
+  useEffect(() => {
+    getAdList()
+  }, [])
   return (
     <div>
       <Space wrap style={{ marginBottom: 16 }}>

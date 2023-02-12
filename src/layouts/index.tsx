@@ -23,14 +23,12 @@ export default (props: any) => {
       <ProLayout
         loading={false}
         locale="en-US"
-        collapsed={false}
-        collapsedButtonRender={false}
         logo="https://www.igscore.com/img/favicon.ico"
         title="IgScore AD Platform"
         menu={{
           defaultOpenAll: true,
           hideMenuWhenCollapsed: true,
-          ignoreFlatMenu: true,
+          ignoreFlatMenu: true
         }}
         {...loginPrams}
         menuItemRender={(item: any, dom) => (

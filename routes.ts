@@ -13,6 +13,12 @@ export default [
       },
       {
         exact: true,
+        name: 'create',
+        path: '/create',
+        component: '@/pages/create',
+      },
+      {
+        exact: true,
         name: 'login',
         path: '/login',
         component: '@/pages/login',
