@@ -8,7 +8,7 @@ export default (props: any) => {
     ? {}
     : {
         avatarProps: {
-          src: 'https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg',
+          src: 'https://www.igscore.com/img/favicon.ico',
           size: 'small',
           title: 'admin',
         },
