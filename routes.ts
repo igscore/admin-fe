@@ -7,15 +7,21 @@ export default [
       { exact: true, name: 'home', path: '/', component: '@/pages/home' },
       {
         exact: true,
-        name: 'detail',
-        path: '/detail',
-        component: '@/pages/detail',
+        name: 'slotlist',
+        path: '/slotlist',
+        component: '@/pages/slotList',
       },
       {
         exact: true,
         name: 'adcreate',
         path: '/adcreate',
         component: '@/pages/adcreate',
+      },
+      {
+        exact: true,
+        name: 'adslotcreate',
+        path: '/adslotcreate',
+        component: '@/pages/adSlotCreate',
       },
       {
         exact: true,

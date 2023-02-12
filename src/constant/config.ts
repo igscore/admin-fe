@@ -256,6 +256,10 @@ export const LanguageList = [
 export const AdPositionList = [
   {
     id: 'home',
-    Label: 'Home'
+    Label: 'Home',
+  },
+  {
+    id: 'team',
+    Label: 'Team',
   }
 ]
