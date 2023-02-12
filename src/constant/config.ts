@@ -255,11 +255,30 @@ export const LanguageList = [
 
 export const AdPositionList = [
   {
-    id: 'home',
-    Label: 'Home',
+    value: 'homepage',
+    label: 'Home',
   },
-  // {
-  //   id: 'team',
-  //   Label: 'Team',
-  // }
+]
+
+export const PlatformList = [
+  {
+    value: '5',
+    label: 'All',
+  },
+  {
+    value: '1',
+    label: 'pc web',
+  },
+  {
+    value: '2',
+    label: 'mobile web',
+  },
+  {
+    value: '3',
+    label: 'ios app',
+  },
+  {
+    value: '4',
+    label: 'android app',
+  }
 ]
