@@ -3,7 +3,7 @@ import { Button, Form, Input, Select, Space } from 'antd';
 import {  RedoOutlined, PlusOutlined } from '@ant-design/icons';
 import styles from './index.less';
 import { goLogin } from '@/model/api';
-import { LanguageList } from '@/constant/config';
+import { AdPositionList, LanguageList } from '@/constant/config';
 
 const App: React.FC = () => {
   const onFinish = (values: any) => {
@@ -27,7 +27,6 @@ const App: React.FC = () => {
           name="Create Ad"
           labelCol={{ span: 10 }}
           wrapperCol={{ span: 16 }}
-          initialValues={{ remember: true }}
           autoComplete="off"
         >
           <Form.Item
@@ -41,7 +40,7 @@ const App: React.FC = () => {
           <Form.Item
             label="Language of delivery"
             name="language"
-            rules={[{ required: true, message: 'Please input your Ad Title!' }]}
+            rules={[{ required: true, message: 'Please select your delivery language!' }]}
           >
             <Select
               defaultValue="en"
@@ -52,24 +51,16 @@ const App: React.FC = () => {
           </Form.Item>
 
           <Form.Item
-            label="Advertising position"
+            label="Ad position"
             name="position"
-            rules={[{ required: true, message: 'Please input your Ad Title!' }]}
+            rules={[{ required: true, message: 'Please input your Ad position!' }]}
           >
             <Select
-              defaultValue="en"
+              defaultValue={AdPositionList[0].id}
               style={{ width: 120 }}
               onChange={handleChange}
-              options={LanguageList}
+              options={AdPositionList}
             />
-          </Form.Item>
-
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
-          >
-            <Input.Password onChange={(e) => {setPassworrd(e.target.value)}}  />
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

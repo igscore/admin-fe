@@ -252,3 +252,10 @@ export const LanguageList = [
     locale: 'ko',
   },
 ];
+
+export const AdPositionList = [
+  {
+    id: 'home',
+    Label: 'Home'
+  }
+]

@@ -13,9 +13,9 @@ export default [
       },
       {
         exact: true,
-        name: 'create',
-        path: '/create',
-        component: '@/pages/create',
+        name: 'adcreate',
+        path: '/adcreate',
+        component: '@/pages/adcreate',
       },
       {
         exact: true,
