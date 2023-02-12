@@ -3,6 +3,7 @@ import { Space, Table, Tag, Button } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { RedoOutlined, PlusOutlined } from '@ant-design/icons';
 import { getAdList } from '@/model/api';
+import { history } from 'umi';
 
 interface DataType {
   key: string;
@@ -73,7 +74,7 @@ const App: React.FC = () => {
   return (
     <div>
       <Space wrap style={{ marginBottom: 16 }}>
-        <Button type="primary">
+        <Button type="primary" onClick={() => {history.push("/create")}}>
           <PlusOutlined />
           Create
         </Button>

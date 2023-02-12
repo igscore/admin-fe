@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Select, Space } from 'antd';
+import {  RedoOutlined, PlusOutlined } from '@ant-design/icons';
 import styles from './index.less';
 import { goLogin } from '@/model/api';
+import { LanguageList } from '@/constant/config';
 
 const App: React.FC = () => {
   const onFinish = (values: any) => {
@@ -15,26 +17,51 @@ const App: React.FC = () => {
   const [username, setName] = useState("")
   const [password, setPassworrd] = useState("")
 
-  const goToLogin = () => {
-    goLogin({username, password})
-  }
+  const handleChange = () => {
 
+  }
   return (
     <div className={styles.container}>
       <div className={styles.form}>
         <Form
-          name="basic"
-          labelCol={{ span: 8 }}
+          name="Create Ad"
+          labelCol={{ span: 10 }}
           wrapperCol={{ span: 16 }}
           initialValues={{ remember: true }}
           autoComplete="off"
         >
           <Form.Item
-            label="Username"
-            name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
+            label="Ad Title"
+            name="title"
+            rules={[{ required: true, message: 'Please input your Ad Title!' }]}
           >
             <Input onChange={(e) => {setName(e.target.value)}} />
+          </Form.Item>
+
+          <Form.Item
+            label="Language of delivery"
+            name="language"
+            rules={[{ required: true, message: 'Please input your Ad Title!' }]}
+          >
+            <Select
+              defaultValue="en"
+              style={{ width: 120 }}
+              onChange={handleChange}
+              options={LanguageList}
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Advertising position"
+            name="position"
+            rules={[{ required: true, message: 'Please input your Ad Title!' }]}
+          >
+            <Select
+              defaultValue="en"
+              style={{ width: 120 }}
+              onChange={handleChange}
+              options={LanguageList}
+            />
           </Form.Item>
 
           <Form.Item
@@ -46,9 +73,16 @@ const App: React.FC = () => {
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit" onClick={goToLogin}>
-              Login
-            </Button>
+            <Space wrap style={{ marginBottom: 16 }}>
+              <Button type="primary">
+                <PlusOutlined />
+                Create
+              </Button>
+              <Button>
+                <RedoOutlined />
+                Cancel
+              </Button>
+            </Space>
           </Form.Item>
         </Form>
       </div>
