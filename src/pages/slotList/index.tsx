@@ -74,7 +74,7 @@ const App: React.FC = () => {
   return (
     <div>
       <Space wrap style={{ marginBottom: 16 }}>
-        <Button type="primary" onClick={() => {history.push("/adcreate")}}>
+        <Button type="primary" onClick={() => {history.push("/adslotcreate")}}>
           <PlusOutlined />
           Create
         </Button>

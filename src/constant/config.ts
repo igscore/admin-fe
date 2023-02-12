@@ -258,8 +258,8 @@ export const AdPositionList = [
     id: 'home',
     Label: 'Home',
   },
-  {
-    id: 'team',
-    Label: 'Team',
-  }
+  // {
+  //   id: 'team',
+  //   Label: 'Team',
+  // }
 ]

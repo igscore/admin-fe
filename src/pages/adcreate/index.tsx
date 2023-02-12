@@ -34,7 +34,7 @@ const App: React.FC = () => {
             name="title"
             rules={[{ required: true, message: 'Please input your Ad Title!' }]}
           >
-            <Input onChange={(e) => {setName(e.target.value)}} />
+            <Input placeholder="Input Ad Title"  onChange={(e) => {setName(e.target.value)}} />
           </Form.Item>
 
           <Form.Item
@@ -44,7 +44,7 @@ const App: React.FC = () => {
           >
             <Select
               defaultValue="en"
-              style={{ width: 120 }}
+              // style={{ width: 120 }}
               onChange={handleChange}
               options={LanguageList}
             />
@@ -57,7 +57,7 @@ const App: React.FC = () => {
           >
             <Select
               defaultValue={AdPositionList[0].id}
-              style={{ width: 120 }}
+              // style={{ width: 120 }}
               onChange={handleChange}
               options={AdPositionList}
             />
