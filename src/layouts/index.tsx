@@ -1,19 +1,33 @@
-import { PageContainer, ProLayout } from '@ant-design/pro-components';
+import { goLogout } from '@/model/api';
+import { PageContainer, ProLayout, DefaultFooter } from '@ant-design/pro-components';
+import { Button } from 'antd';
 import { history } from 'umi';
 import Menu from './menu';
 
 export default (props: any) => {
-  const isUnLogin = history.location.pathname.indexOf('login') > -1;
-  const loginPrams = isUnLogin
-    ? {}
-    : {
-        avatarProps: {
-          src: 'https://www.igscore.com/img/favicon.ico',
-          size: 'small',
-          title: 'admin',
-        },
-        route: Menu,
-      };
+  const isLoginPage = history.location.pathname.indexOf('login') > -1;
+  const params = {
+    avatarProps: {
+      src: 'https://www.igscore.com/img/favicon.ico',
+      size: 'small',
+      title: 'admin',
+    },
+    route: Menu,
+  }
+  if(isLoginPage) {
+    return (
+      <PageContainer style={{ background: '#fff' }}>
+        {props.children}
+      </PageContainer>
+    )
+  }
+
+  const logout = () => {
+    goLogout()
+    .then((d) => {
+      history.replace('/login')
+    })
+  }
   return (
     <div
       style={{
@@ -30,7 +44,7 @@ export default (props: any) => {
           hideMenuWhenCollapsed: true,
           ignoreFlatMenu: true
         }}
-        {...loginPrams}
+        {...params}
         menuItemRender={(item: any, dom) => (
           <a
             onClick={() => {
@@ -39,6 +53,16 @@ export default (props: any) => {
           >
             {dom}
           </a>
+        )}
+        menuFooterRender={() => {
+          return (
+            <Button onClick={logout}>Log out</Button>
+          );
+        }}
+        footerRender={() => (
+          <DefaultFooter
+            copyright="igscore"
+          />
         )}
       >
         <PageContainer style={{ background: '#fff' }}>
