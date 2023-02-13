@@ -97,20 +97,23 @@ const columns: ColumnsType<DataType> = [
 
 const App: React.FC = () => {
   const [list, setList] = useState([])
-  useEffect(() => {
+  const getList = () => {
     getAdList()
     .then((d) => {
       setList(d.result)
     })
+  }
+  useEffect(() => {
+    getList()
   }, [])
   return (
     <div>
       <Space wrap style={{ marginBottom: 16 }}>
-        <Button type="primary" onClick={() => {history.push("/adcreate")}}>
+        <Button type="primary" onClick={() => {history.push("/adslotcreate")}}>
           <PlusOutlined />
           Create
         </Button>
-        <Button>
+        <Button onClick={getList}>
           <RedoOutlined />
           Refresh
         </Button>

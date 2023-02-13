@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Button, Form, Input } from 'antd';
+import { notification, Button, Form, Input } from 'antd';
 import styles from './index.less';
 import { goLogin } from '@/model/api';
+import { history } from 'umi';
 
 const App: React.FC = () => {
   const onFinish = (values: any) => {
     console.log('Success:', values);
+    goToLogin()
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -15,8 +17,32 @@ const App: React.FC = () => {
   const [username, setName] = useState("admin")
   const [password, setPassworrd] = useState("igscoreAdmin")
 
+  const showError = (message: string) => {
+    notification.error({
+      key: 'error login',
+      message: 'Error',
+      description: message,
+    })
+  }
+
   const goToLogin = () => {
     goLogin({username, password})
+    .then((res: any) => {
+      if(res.code === 'A00000' && res.message === 'Success.') {
+        notification.success({
+          key: 'success login',
+          message: 'Success',
+          description: 'Success Login',
+        })
+        history.replace('/')
+      } else {
+        showError(res.message || 'Login fail')
+      }
+    })
+    .catch((e) => {
+      console.log(e.response.data.message)
+      showError(e.response.data.message)
+    })
   }
 
   return (
@@ -27,6 +53,7 @@ const App: React.FC = () => {
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           initialValues={{ remember: true }}
+          onFinish={onFinish}
           autoComplete="off"
         >
           <Form.Item
@@ -46,7 +73,7 @@ const App: React.FC = () => {
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit" onClick={goToLogin}>
+            <Button type="primary" htmlType="submit">
               Login
             </Button>
           </Form.Item>

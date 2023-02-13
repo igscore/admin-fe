@@ -24,17 +24,23 @@ const igsRequest = axios.create({
 // 请求拦截,所有的网络请求都会先走这个方法
 igsRequest.interceptors.response.use(
   function (response) {
-    console.log(response)
+    console.log(response, '=====')
     // add config
     try {
-      return response.data.result;
+      return response.data;
     } catch (e) {
       console.log(response.data.message)
       return {};
     }
   },
   function (err) {
-    console.log(err, '====')
+    try {
+      if(err.response.data.code == "403") {
+        location.replace('/login')
+      }
+    } catch(e) {
+      return Promise.reject(err);
+    }
     return Promise.reject(err);
   },
 );

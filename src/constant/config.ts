@@ -278,3 +278,10 @@ export const PlatformList = [
     label: 'android app',
   }
 ]
+
+export const CreateErrorMessage = {
+  imageUrl: 'Please input your Ad Link!',
+  width: 'Please input your Ad Width!',
+  height: 'Please input your Ad Height!',
+  title: 'Please input your Ad Title!',
+}

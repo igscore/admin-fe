@@ -8,10 +8,6 @@ const Menu = {
           path: '/',
           name: 'AD List',
         },
-        {
-          path: '/slotlist',
-          name: 'AD Slot List',
-        },
       ],
     },
   ],
