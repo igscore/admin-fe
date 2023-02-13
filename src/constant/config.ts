@@ -280,7 +280,7 @@ export const PlatformList = [
 ]
 
 export const CreateErrorMessage = {
-  imageUrl: 'Please input your Ad Link!',
+  imageUrl: 'Please input your Ad Image Url!',
   width: 'Please input your Ad Width!',
   height: 'Please input your Ad Height!',
   title: 'Please input your Ad Title!',

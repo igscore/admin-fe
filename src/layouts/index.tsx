@@ -25,7 +25,7 @@ export default (props: any) => {
 
   const logout = () => {
     goLogout()
-    .then((d) => {
+    .finally(() => {
       history.replace('/login')
     })
   }

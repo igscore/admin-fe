@@ -38,6 +38,7 @@ const App: React.FC = (props) => {
         return false 
       }
     }
+    return true
   }
 
   const onFinish = () => {
@@ -50,7 +51,7 @@ const App: React.FC = (props) => {
       "position": pos,
       "length": height,
       "width": width,
-      "status": 0,
+      "status": 1,
       "imageUrl": imageUrl,
       "description": description,
       "modifiedBy": "igscore",
@@ -167,7 +168,7 @@ const App: React.FC = (props) => {
           </div>
 
           <div className={styles.rowline}>
-            <span className={styles.lable}>Ad Link: </span>
+            <span className={styles.lable}>Ad Image Url: </span>
             <Input value={imageUrl} onChange={(e) => {setLink(e.target.value)}} placeholder="Input Ad Link"  />
           </div>
 

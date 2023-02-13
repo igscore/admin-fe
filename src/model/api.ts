@@ -16,7 +16,15 @@ export const createAd = async (params: any) => {
     Object.assign(params, {
       "modifiedBy": "igscore",
       "createdBy": "igscore",
+      status: 1
     })
+  )
+}
+
+export const updateAd = async (params) => {
+  return igsRequest.post(
+    'user/ad/update',
+    params
   )
 }
 
