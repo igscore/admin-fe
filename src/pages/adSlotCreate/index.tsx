@@ -2,12 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Select, Space, Image, Upload, notification } from 'antd';
 import {  RedoOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import styles from './index.less';
-import { AdPositionList, PlatformList, LanguageList, CreateErrorMessage } from '@/constant/config';
+import { AdPositionList, PlatformList, LanguageList, CreateErrorMessage, GlobalSportPathname } from '@/constant/config';
 import { createAd, getAdDetail } from '@/model/api';
 import { history } from 'umi';
 import { CountryList } from '@/constant/country';
 
 const { TextArea } = Input;
+
+const PositionList = GlobalSportPathname.map((item) => {
+  return {
+    value: `${item}_homepage`,
+    label: `${item}_home`
+  }
+})
 
 const App: React.FC = (props) => {
   const [id, setId] = useState(props.location.query.id)
@@ -19,7 +26,7 @@ const App: React.FC = (props) => {
   const [title, setTitle] = useState("")
   const [country, setCountry] = useState("US")
   const [platform, setPlatform] = useState("web")
-  const [pos, setPosition] = useState("homepage")
+  const [pos, setPosition] = useState(PositionList[0].value)
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
   const [imageUrl, setLink] = useState("")
@@ -146,7 +153,7 @@ const App: React.FC = (props) => {
                 setPosition(e)
               }}
               style={{width: '408px'}}
-              options={AdPositionList}
+              options={PositionList}
             />
           </div>
 

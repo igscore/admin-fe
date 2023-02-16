@@ -7,4 +7,6 @@ export default defineConfig({
   },
   routes,
   fastRefresh: {},
+  hash: true,
+  dynamicImport: {}
 });

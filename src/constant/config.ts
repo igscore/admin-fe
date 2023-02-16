@@ -253,6 +253,23 @@ export const LanguageList = [
   },
 ];
 
+export const GlobalSportPathname = [
+  'football',
+  'basketball',
+  'amfootball',
+  'baseball',
+  'icehockey',
+  'tennis',
+  'volleyball',
+  'esports',
+  'handball',
+  'cricket',
+  'waterpolo',
+  'tabletennis',
+  'snooker',
+  'badminton'
+]
+
 export const AdPositionList = [
   {
     value: 'homepage',
