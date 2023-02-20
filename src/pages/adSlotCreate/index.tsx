@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Select, Space, Image, Upload, notification } from 'antd';
-import {  RedoOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import {  RedoOutlined, PlusOutlined, UploadOutlined, EditOutlined } from '@ant-design/icons';
 import styles from './index.less';
 import { AdPositionList, PlatformList, LanguageList, CreateErrorMessage, GlobalSportPathname } from '@/constant/config';
 import { createAd, getAdDetail } from '@/model/api';
@@ -30,6 +30,7 @@ const App: React.FC = (props) => {
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
   const [imageUrl, setLink] = useState("")
+  const [jumpUrl, setJumpUrl] = useState("")
   const [description, setDesc] = useState("")
 
   const checkIsEmpty = () => {
@@ -60,6 +61,7 @@ const App: React.FC = (props) => {
       "width": width,
       "status": 1,
       "imageUrl": imageUrl,
+      jumpUrl,
       "description": description,
       "modifiedBy": "igscore",
       "createdBy": "igscore",
@@ -95,9 +97,10 @@ const App: React.FC = (props) => {
         setCountry(result.country)
         setPlatform(result.platform)
         setPosition(result.position)
-        setWidth(result.width)
+        setWidth(result.length)
         setHeight(result.height)
         setLink(result.imageUrl)
+        setJumpUrl(result.jumpUrl)
         setDesc(result.description)
       }
     })
@@ -176,7 +179,12 @@ const App: React.FC = (props) => {
 
           <div className={styles.rowline}>
             <span className={styles.lable}>Ad Image Url: </span>
-            <Input value={imageUrl} onChange={(e) => {setLink(e.target.value)}} placeholder="Input Ad Link"  />
+            <Input value={imageUrl} onChange={(e) => {setLink(e.target.value)}} placeholder="Input Ad Image Link"  />
+          </div>
+
+          <div className={styles.rowline}>
+            <span className={styles.lable}>Ad Link: </span>
+            <Input value={jumpUrl} onChange={(e) => {setJumpUrl(e.target.value)}} placeholder="Input Ad Link"  />
           </div>
 
           <div className={styles.rowline}>
@@ -186,10 +194,19 @@ const App: React.FC = (props) => {
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Space wrap style={{ marginBottom: 16 }}>
-              <Button type="primary"  onClick={onFinish}>
-                <PlusOutlined />
-                {isCreate ? 'Create' : 'Update'}
-              </Button>
+              {
+                isCreate ? (
+                <Button type="primary"  onClick={onFinish}>
+                  <PlusOutlined />
+                  Create
+                </Button>
+                ) : (
+                <Button type="primary"  onClick={onFinish}>
+                  <EditOutlined />
+                  Update
+                </Button>
+                )
+              }
               <Button onClick={() => history.replace('/')}>
                 <RedoOutlined />
                 Cancel
