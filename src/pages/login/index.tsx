@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { notification, Button, Form, Input } from 'antd';
 import styles from './index.less';
 import { goLogin } from '@/model/api';
@@ -17,8 +17,20 @@ const App: React.FC = () => {
     console.log('Failed:', errorInfo);
   };
 
-  const [username, setName] = useState(localStorage.getItem(ue) || '')
-  const [password, setPassworrd] = useState(localStorage.getItem(ud) || '')
+  const [username, setName] = useState('')
+  const [password, setPassworrd] = useState('')
+
+  useEffect(() => {
+    const name = localStorage.getItem(ue)
+    const pwd = localStorage.getItem(ud)
+    if(name) {
+      setName(name)
+    }
+    if(pwd) {
+      setPassworrd(pwd)
+    }
+
+  }, [])
 
   const showError = (message: string) => {
     notification.error({
