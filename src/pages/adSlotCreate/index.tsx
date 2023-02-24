@@ -17,12 +17,6 @@ const PositionList = AdPositionList.map((item) => {
   }
 })
 
-const getBase64 = (img: RcFile, callback: (url: string) => void) => {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result as string));
-  reader.readAsDataURL(img);
-};
-
 const App: React.FC = (props) => {
   const [id, setId] = useState(props.location.query.id)
   const [isCreate, setIsCreate] = useState(!id)
@@ -165,10 +159,8 @@ const App: React.FC = (props) => {
     }
     if (info.file.status === 'done') {
       // Get this url from response in real world.
-      getBase64(info.file.originFileObj as RcFile, (url) => {
-        setLoading(false);
-        setLink(`https://www.igscore.com/static-images/ads/${url}`);
-      });
+      setLoading(false);
+      setLink(`https://www.igscore.com/static-images/ads/${info.file.name}`);
     }
   };
 
