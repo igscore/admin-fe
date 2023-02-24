@@ -271,10 +271,7 @@ export const GlobalSportPathname = [
 ]
 
 export const AdPositionList = [
-  {
-    value: 'homepage',
-    label: 'homepage',
-  },
+  'homepage'
 ]
 
 export const PositionSizeMap = {
