@@ -17,6 +17,18 @@ const PositionList = AdPositionList.map((item) => {
   }
 })
 
+export const generateUuid = (prefix: string, length: number) => {
+  const uuidStr = 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx';
+  const len = !length ? uuidStr.length : length;
+  let date = Date.now();
+  const uuid = uuidStr.replace(/[xy]/g, (c) => {
+    const r = (date + Math.random() * 16) % 16 | 0; // eslint-disable-line no-bitwise
+    date = Math.floor(date / 16);
+    return (c === 'x' ? r : (r & 0x7) | 0x8).toString(16); // eslint-disable-line no-bitwise
+  });
+  return `${!prefix ? '' : prefix}${uuid.slice(0, len)}`;
+};
+
 const App: React.FC = (props) => {
   const [id, setId] = useState(props.location.query.id)
   const [isCreate, setIsCreate] = useState(!id)
@@ -143,8 +155,6 @@ const App: React.FC = (props) => {
     })
   }, [id])
 
-  console.log(title)
-
   const uploadButton = (
     <div>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
@@ -154,8 +164,14 @@ const App: React.FC = (props) => {
 
   const handleChange = (info) => {
     if (info.file.status === 'uploading') {
+      info.file.name = generateUuid('file', 10) + info.file.name
+      console.log(info.file.name)
       setLoading(true);
       return;
+    }
+    if (info.file.status === 'error') {
+      // Get this url from response in real world.
+      console.log(info.file.name)
     }
     if (info.file.status === 'done') {
       // Get this url from response in real world.
