@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Select, Space, Image, Upload, notification } from 'antd';
 import {  RedoOutlined, PlusOutlined, LoadingOutlined, EditOutlined } from '@ant-design/icons';
 import styles from './index.less';
-import { AdPositionList, PlatformList, LanguageList, CreateErrorMessage, GlobalSportPathname } from '@/constant/config';
+import { AdPositionList, PlatformList, LanguageList, CreateErrorMessage } from '@/constant/config';
 import { createAd, getAdDetail, updateAd } from '@/model/api';
 import { history } from 'umi';
 import { CountryList } from '@/constant/country';
@@ -10,10 +10,10 @@ import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
 
 const { TextArea } = Input;
 
-const PositionList = GlobalSportPathname.map((item) => {
+const PositionList = AdPositionList.map((item) => {
   return {
-    value: `${item}_homepage`,
-    label: `${item}_home`
+    value: item,
+    label: item
   }
 })
 

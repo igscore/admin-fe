@@ -273,7 +273,7 @@ export const GlobalSportPathname = [
 export const AdPositionList = [
   {
     value: 'homepage',
-    label: 'Home',
+    label: 'homepage',
   },
 ]
 

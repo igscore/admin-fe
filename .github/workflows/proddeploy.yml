@@ -24,24 +24,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
-    - name: Build/Common
-      run: yarn
 
-    - name: Build/H5
-      run: |
-        ls
-        echo "install common packages"
-        yarn
-        echo "cd h5"
-        cd h5/
-        echo "install h5 packages"
-        yarn
-        echo "build"
-        yarn build
-        ls
-      shell: bash
-
-    - name: Build/PC
+    - name: Build
       run: |
         ls
         echo "install packages"
