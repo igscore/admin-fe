@@ -4,6 +4,7 @@ import type { ColumnsType } from 'antd/es/table';
 import { RedoOutlined, PlusOutlined } from '@ant-design/icons';
 import { getAdList, updateAd } from '@/model/api';
 import { history, Link } from 'umi';
+import { PositionSizeMap } from '@/constant/config';
 
 const { confirm } = Modal;
 
@@ -130,7 +131,7 @@ const App: React.FC = () => {
       dataIndex: 'size',
       key: 'width',
       render: (text, record, index) => (
-        <span>{record.length} * {record.width}</span>
+        <span>{PositionSizeMap[record.pos].width} * {PositionSizeMap[record.pos].height}</span>
       ),
     },
     {

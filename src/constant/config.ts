@@ -277,6 +277,13 @@ export const AdPositionList = [
   },
 ]
 
+export const PositionSizeMap = {
+  homepage: {
+    width: 992,
+    height: 100
+  }
+}
+
 export const PlatformList = [
   {
     value: 'web',

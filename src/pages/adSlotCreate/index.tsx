@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Select, Space, Image, Upload, notification } from 'antd';
 import {  RedoOutlined, PlusOutlined, LoadingOutlined, EditOutlined } from '@ant-design/icons';
 import styles from './index.less';
-import { AdPositionList, PlatformList, LanguageList, CreateErrorMessage } from '@/constant/config';
+import { AdPositionList, PlatformList, PositionSizeMap, CreateErrorMessage } from '@/constant/config';
 import { createAd, getAdDetail, updateAd } from '@/model/api';
 import { history } from 'umi';
 import { CountryList } from '@/constant/country';
@@ -42,8 +42,8 @@ const App: React.FC = (props) => {
   const [loading, setLoading] = useState(false);
 
   const checkIsEmpty = () => {
-    const values = [title, width, height, imageUrl]
-    const valueKeys = ['title', 'width', 'height', 'imageUrl']
+    const values = [title, imageUrl]
+    const valueKeys = ['title', 'imageUrl']
     for(let i = 0; i < values.length; i++) {
       if(!values[i]) {
         notification.error({
@@ -65,8 +65,8 @@ const App: React.FC = (props) => {
       "client": "123",
       "platform": platform,
       "position": pos,
-      "length": height,
-      "width": width,
+      "length": PositionSizeMap[pos].height,
+      "width": PositionSizeMap[pos].width,
       "status": 1,
       "imageUrl": imageUrl,
       jumpUrl,
@@ -100,8 +100,8 @@ const App: React.FC = (props) => {
       "client": "123",
       "platform": platform,
       "position": pos,
-      "length": height,
-      "width": width,
+      "length": PositionSizeMap[pos].height,
+      "width": PositionSizeMap[pos].width,
       "status": 1,
       "imageUrl": imageUrl,
       jumpUrl,
@@ -140,8 +140,8 @@ const App: React.FC = (props) => {
         setCountry(result.country)
         setPlatform(result.platform)
         setPosition(result.position)
-        setWidth(result.width)
-        setHeight(result.length)
+        // setWidth(result.width)
+        // setHeight(result.length)
         setLink(result.imageUrl)
         setJumpUrl(result.jumpUrl)
         setDesc(result.description)
@@ -231,7 +231,7 @@ const App: React.FC = (props) => {
             />
           </div>
 
-          <div className={styles.rowline}>
+          {/* <div className={styles.rowline}>
             <span className={styles.lable}>Ad Width: </span>
             <Input type='number' value={height} onChange={(e) => {setHeight(e.target.value)}}  placeholder="Input Ad Width" />
           </div>
@@ -239,7 +239,7 @@ const App: React.FC = (props) => {
           <div className={styles.rowline}>
             <span className={styles.lable}>Ad Height: </span>
             <Input type='number' value={width} onChange={(e) => {setWidth(e.target.value)}}  placeholder="Input Ad Width" />
-          </div>
+          </div> */}
 
           <div className={styles.rowline}>
             <span className={styles.lable}>Ad Image Url: </span>
