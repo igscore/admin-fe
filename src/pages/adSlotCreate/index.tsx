@@ -3,7 +3,7 @@ import { Button, Form, Input, Select, Space, Image, Upload, notification } from 
 import {  RedoOutlined, PlusOutlined, UploadOutlined, EditOutlined } from '@ant-design/icons';
 import styles from './index.less';
 import { AdPositionList, PlatformList, LanguageList, CreateErrorMessage, GlobalSportPathname } from '@/constant/config';
-import { createAd, getAdDetail } from '@/model/api';
+import { createAd, getAdDetail, updateAd } from '@/model/api';
 import { history } from 'umi';
 import { CountryList } from '@/constant/country';
 
@@ -66,8 +66,7 @@ const App: React.FC = (props) => {
       "modifiedBy": "igscore",
       "createdBy": "igscore",
       "startTime": '',
-      "endTime": '',
-      id: detail.id || ''
+      "endTime": ''
     }).then((d) => {
       notification.success({
         key: 'success',
@@ -79,6 +78,42 @@ const App: React.FC = (props) => {
     .catch((e) => {
       notification.error({
         key: 'error create',
+        message: 'Error',
+        description: 'please try again',
+      })
+    })
+  };
+
+  const onUpdateFinish = () => {
+    if(!checkIsEmpty()) return false
+    updateAd({
+      "name": title,
+      "country": country,
+      "client": "123",
+      "platform": platform,
+      "position": pos,
+      "length": height,
+      "width": width,
+      "status": 1,
+      "imageUrl": imageUrl,
+      jumpUrl,
+      "description": description,
+      "modifiedBy": "igscore",
+      "createdBy": "igscore",
+      "startTime": '',
+      "endTime": '',
+      id: detail.id || ''
+    }).then((d) => {
+      notification.success({
+        key: 'success',
+        message: 'Success',
+        description: 'Update Successed',
+      })
+      history.replace('/')
+    })
+    .catch((e) => {
+      notification.error({
+        key: 'error update',
         message: 'Error',
         description: 'please try again',
       })
@@ -97,8 +132,8 @@ const App: React.FC = (props) => {
         setCountry(result.country)
         setPlatform(result.platform)
         setPosition(result.position)
-        setWidth(result.length)
-        setHeight(result.height)
+        setWidth(result.width)
+        setHeight(result.length)
         setLink(result.imageUrl)
         setJumpUrl(result.jumpUrl)
         setDesc(result.description)
@@ -201,7 +236,7 @@ const App: React.FC = (props) => {
                   Create
                 </Button>
                 ) : (
-                <Button type="primary"  onClick={onFinish}>
+                <Button type="primary"  onClick={onUpdateFinish}>
                   <EditOutlined />
                   Update
                 </Button>
