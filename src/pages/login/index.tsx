@@ -4,6 +4,9 @@ import styles from './index.less';
 import { goLogin } from '@/model/api';
 import { history } from 'umi';
 
+const ue = 'ue-n'
+const ud = 'ue-d'
+
 const App: React.FC = () => {
   const onFinish = (values: any) => {
     console.log('Success:', values);
@@ -14,8 +17,8 @@ const App: React.FC = () => {
     console.log('Failed:', errorInfo);
   };
 
-  const [username, setName] = useState("admin")
-  const [password, setPassworrd] = useState("igscoreAdmin")
+  const [username, setName] = useState(localStorage.getItem(ue) || '')
+  const [password, setPassworrd] = useState(localStorage.getItem(ud) || '')
 
   const showError = (message: string) => {
     notification.error({
@@ -29,6 +32,8 @@ const App: React.FC = () => {
     goLogin({username, password})
     .then((res: any) => {
       if(res.code === 'A00000' && res.message === 'Success.') {
+        localStorage.setItem(ue, username)
+        localStorage.setItem(ud, password)
         notification.success({
           key: 'success login',
           message: 'Success',
@@ -61,7 +66,7 @@ const App: React.FC = () => {
             name="username"
             rules={[{ required: true, message: 'Please input your username!' }]}
           >
-            <Input value={username} onChange={(e) => {setName(e.target.value)}} />
+            <Input defaultValue={username} onChange={(e) => {setName(e.target.value)}} />
           </Form.Item>
 
           <Form.Item
@@ -69,7 +74,7 @@ const App: React.FC = () => {
             name="password"
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
-            <Input.Password value={password} onChange={(e) => {setPassworrd(e.target.value)}}  />
+            <Input.Password defaultValue={password} onChange={(e) => {setPassworrd(e.target.value)}}  />
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

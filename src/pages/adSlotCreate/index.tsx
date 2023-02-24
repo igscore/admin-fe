@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Select, Space, Image, Upload, notification } from 'antd';
-import {  RedoOutlined, PlusOutlined, UploadOutlined, EditOutlined } from '@ant-design/icons';
+import {  RedoOutlined, PlusOutlined, LoadingOutlined, EditOutlined } from '@ant-design/icons';
 import styles from './index.less';
 import { AdPositionList, PlatformList, LanguageList, CreateErrorMessage, GlobalSportPathname } from '@/constant/config';
 import { createAd, getAdDetail, updateAd } from '@/model/api';
 import { history } from 'umi';
 import { CountryList } from '@/constant/country';
+import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
 
 const { TextArea } = Input;
 
@@ -15,6 +16,12 @@ const PositionList = GlobalSportPathname.map((item) => {
     label: `${item}_home`
   }
 })
+
+const getBase64 = (img: RcFile, callback: (url: string) => void) => {
+  const reader = new FileReader();
+  reader.addEventListener('load', () => callback(reader.result as string));
+  reader.readAsDataURL(img);
+};
 
 const App: React.FC = (props) => {
   const [id, setId] = useState(props.location.query.id)
@@ -32,6 +39,7 @@ const App: React.FC = (props) => {
   const [imageUrl, setLink] = useState("")
   const [jumpUrl, setJumpUrl] = useState("")
   const [description, setDesc] = useState("")
+  const [loading, setLoading] = useState(false);
 
   const checkIsEmpty = () => {
     const values = [title, width, height, imageUrl]
@@ -143,6 +151,27 @@ const App: React.FC = (props) => {
 
   console.log(title)
 
+  const uploadButton = (
+    <div>
+      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </div>
+  );
+
+  const handleChange = (info) => {
+    if (info.file.status === 'uploading') {
+      setLoading(true);
+      return;
+    }
+    if (info.file.status === 'done') {
+      // Get this url from response in real world.
+      getBase64(info.file.originFileObj as RcFile, (url) => {
+        setLoading(false);
+        setLink(`https://www.igscore.com/static-images/ads/${url}`);
+      });
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.form}>
@@ -214,8 +243,21 @@ const App: React.FC = (props) => {
 
           <div className={styles.rowline}>
             <span className={styles.lable}>Ad Image Url: </span>
-            <Input value={imageUrl} onChange={(e) => {setLink(e.target.value)}} placeholder="Input Ad Image Link"  />
+            <Input value={imageUrl} onChange={(e) => {setLink(e.target.value)}} placeholder="Input Link or Upload a Image file"  />
           </div>
+          <div className={styles.flexright}>
+            <Upload
+              name="avatar"
+              listType="picture-card"
+              className="avatar-uploader"
+              showUploadList={false}
+              action="https://api.igscore.com:8080/admin/user/image/upload"
+              onChange={handleChange}
+              withCredentials={true}
+            >
+              {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+            </Upload>  
+            </div>  
 
           <div className={styles.rowline}>
             <span className={styles.lable}>Ad Link: </span>
