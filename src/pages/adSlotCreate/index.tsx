@@ -247,7 +247,7 @@ const App: React.FC = (props) => {
           </div>
           <div className={styles.flexright}>
             <Upload
-              name="path"
+              name="file"
               listType="picture-card"
               className="avatar-uploader"
               showUploadList={false}

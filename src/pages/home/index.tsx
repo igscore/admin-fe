@@ -131,7 +131,7 @@ const App: React.FC = () => {
       dataIndex: 'size',
       key: 'width',
       render: (text, record, index) => (
-        <span>{PositionSizeMap[record.pos].width} * {PositionSizeMap[record.pos].height}</span>
+        <span>{PositionSizeMap[record.pos]?.width} * {PositionSizeMap[record.pos]?.height}</span>
       ),
     },
     {

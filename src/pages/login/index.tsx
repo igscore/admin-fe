@@ -21,14 +21,14 @@ const App: React.FC = () => {
   const [password, setPassworrd] = useState('')
 
   useEffect(() => {
-    const name = localStorage.getItem(ue)
-    const pwd = localStorage.getItem(ud)
-    if(name) {
-      setName(name)
-    }
-    if(pwd) {
-      setPassworrd(pwd)
-    }
+    // const name = localStorage.getItem(ue)
+    // const pwd = localStorage.getItem(ud)
+    // if(name) {
+    //   setName(name)
+    // }
+    // if(pwd) {
+    //   setPassworrd(pwd)
+    // }
 
   }, [])
 
