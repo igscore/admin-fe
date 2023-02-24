@@ -14,8 +14,8 @@ export const createAd = async (params: any) => {
   return igsRequest.post(
     'user/ad/create',
     Object.assign(params, {
-      "modifiedBy": "igscore",
-      "createdBy": "igscore",
+      "modifiedBy": "igAdmin",
+      "createdBy": "igAdmin",
       status: 1
     })
   )
@@ -24,7 +24,10 @@ export const createAd = async (params: any) => {
 export const updateAd = async (params) => {
   return igsRequest.post(
     'user/ad/update',
-    params
+    Object.assign(params, {
+      "modifiedBy": "igAdmin",
+      "createdBy": "igAdmin"
+    })
   )
 }
 

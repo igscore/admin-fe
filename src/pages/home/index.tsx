@@ -44,7 +44,7 @@ const App: React.FC = () => {
     setLoading(true)
     getAdList()
     .then((d) => {
-      setList(d.result)
+      setList(d.result.filter(item => item.createdBy === 'igAdmin'))
       setLoading(false)
     })
     .catch(() => {
