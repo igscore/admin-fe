@@ -1,0 +1,62 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: PRO CI
+
+on:
+  push:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.18.1]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'yarn'
+    - name: Build/Common
+      run: yarn
+
+    - name: Build/H5
+      run: |
+        ls
+        echo "install common packages"
+        yarn
+        echo "cd h5"
+        cd h5/
+        echo "install h5 packages"
+        yarn
+        echo "build"
+        yarn build
+        ls
+      shell: bash
+
+    - name: Build/PC
+      run: |
+        ls
+        echo "install packages"
+        yarn
+        echo "build"
+        yarn build
+        ls
+      shell: bash
+
+    - name: deploy File to server
+      uses: cross-the-world/scp-pipeline@master
+      with:
+        host: ${{ secrets.PRO_SERVER_IP }}
+        user: ${{ secrets.PRO_SSH_USERNAME }}
+        key: ${{ secrets.PRO_SSH_TOKEN }}
+        connect_timeout: 100s
+        local: './dist/*'
+        remote: '/home/wwwroot/admin'
