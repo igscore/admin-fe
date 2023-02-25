@@ -88,7 +88,6 @@ const AdSlotCreate: React.FC<any> = (props) => {
     createAd({
       name: title,
       country,
-      client: '123',
       platform,
       position: position,
       width: AdImageInfoMaps[platform][position].width,
@@ -120,9 +119,9 @@ const AdSlotCreate: React.FC<any> = (props) => {
   const onUpdateFinish = () => {
     if (!checkIsEmpty()) return false;
     updateAd({
+      id: detail.id || '',
       name: title,
       country: country,
-      client: '123',
       platform,
       position,
       length: AdImageInfoMaps[platform][position].height,
@@ -133,7 +132,6 @@ const AdSlotCreate: React.FC<any> = (props) => {
       description,
       startTime: '',
       endTime: '',
-      id: detail.id || '',
     })
       .then(() => {
         notification.success({

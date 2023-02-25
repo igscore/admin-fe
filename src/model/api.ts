@@ -14,6 +14,7 @@ export const createAd = async (params: any) => {
   return igsRequest.post(
     'user/ad/create',
     Object.assign(params, {
+      client: '123',
       createdBy: 'admin',
     }),
   );
@@ -23,6 +24,7 @@ export const updateAd = async (params: any) => {
   return igsRequest.post(
     'user/ad/update',
     Object.assign(params, {
+      client: '123',
       modifiedBy: 'admin',
     }),
   );
