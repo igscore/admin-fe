@@ -267,19 +267,17 @@ export const GlobalSportPathname = [
   'waterpolo',
   'tabletennis',
   'snooker',
-  'badminton'
-]
+  'badminton',
+];
 
-export const AdPositionList = [
-  'homepage'
-]
+export const AdPositionList = ['homepage'];
 
-export const PositionSizeMap = {
+export const PositionSizeMap: any = {
   homepage: {
     width: 992,
-    height: 100
-  }
-}
+    height: 100,
+  },
+};
 
 export const PlatformList = [
   {
@@ -297,12 +295,12 @@ export const PlatformList = [
   {
     value: 'android',
     label: 'android app',
-  }
-]
+  },
+];
 
 export const CreateErrorMessage = {
   imageUrl: 'Please input your Ad Image Url!',
   width: 'Please input your Ad Width!',
   height: 'Please input your Ad Height!',
   title: 'Please input your Ad Title!',
-}
+};
