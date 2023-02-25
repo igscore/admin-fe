@@ -16,6 +16,7 @@ interface DataType {
   image: string;
   status: 0 | 1;
   position: string;
+  platform: string;
   createdBy: string;
 }
 
@@ -134,14 +135,12 @@ const App: React.FC = () => {
       key: 'position',
     },
     {
-      title: 'Width * Height',
+      title: 'Size',
       key: 'width',
-      render: (text, record) => (
-        <span>
-          {PositionSizeMap[record.position]?.width} *{' '}
-          {PositionSizeMap[record.position]?.height}
-        </span>
-      ),
+      render: (text, record) => {
+        const size = PositionSizeMap?.[record.platform]?.[record.position];
+        return size ? `${size.width}px * ${size.height}px` : '';
+      },
     },
     {
       title: 'Description',

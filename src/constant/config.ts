@@ -273,9 +273,17 @@ export const GlobalSportPathname = [
 export const AdPositionList = ['homepage'];
 
 export const PositionSizeMap: any = {
-  homepage: {
-    width: 992,
-    height: 100,
+  web: {
+    homepage: {
+      width: 992,
+      height: 100,
+    },
+  },
+  mobile: {
+    homepage: {
+      width: 720,
+      height: 100,
+    },
   },
 };
 
