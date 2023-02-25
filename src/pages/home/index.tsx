@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Space, Table, Modal, Button, notification, Tag } from 'antd';
+import { Space, Table, Modal, Button, notification, Tag, Image } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { RedoOutlined, PlusOutlined } from '@ant-design/icons';
 import { getAdList, updateAd } from '@/model/api';
@@ -15,6 +15,7 @@ interface DataType {
   size: string;
   image: string;
   status: 0 | 1;
+  imageUrl: string;
   position: string;
   platform: string;
   createdBy: string;
@@ -123,6 +124,7 @@ const App: React.FC = () => {
       title: 'Image Url',
       dataIndex: 'imageUrl',
       key: 'imageUrl',
+      render: (text, record) => <Image width={300} src={record.imageUrl} />,
     },
     {
       title: 'Platform',
