@@ -121,7 +121,7 @@ const App: React.FC = () => {
       render: (text) => <a>{text}</a>,
     },
     {
-      title: 'Image Url',
+      title: 'Image',
       dataIndex: 'imageUrl',
       key: 'imageUrl',
       render: (text, record) => <Image width={300} src={record.imageUrl} />,
