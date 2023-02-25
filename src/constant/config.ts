@@ -302,20 +302,20 @@ export const AdImageSizeMaps: {
   },
   [PlatformList[1].value]: {
     [AdPositionList[0]]: {
-      width: 720,
-      height: 100,
+      width: 750,
+      height: 88,
     },
   },
   [PlatformList[2].value]: {
     [AdPositionList[0]]: {
-      width: 720,
-      height: 100,
+      width: 750,
+      height: 88,
     },
   },
   [PlatformList[3].value]: {
     [AdPositionList[0]]: {
-      width: 720,
-      height: 100,
+      width: 750,
+      height: 88,
     },
   },
 };
