@@ -161,7 +161,7 @@ const App: React.FC = () => {
         if (text === 1) {
           return <Tag color="success">active</Tag>;
         }
-        return <Tag color="default">offline</Tag>;
+        return <Tag color="default">disabled</Tag>;
       },
     },
     {
