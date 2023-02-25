@@ -182,7 +182,7 @@ const App: React.FC = (props) => {
 
   const beforeUpload = (file) => {
     console.log(file)
-    return Promise.resolve(Object.assign(file, {name: generateUuid('ad_', 10) + file.name}))
+    return Promise.resolve(file)
     return new Promise((resolve) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
