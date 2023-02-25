@@ -270,23 +270,6 @@ export const GlobalSportPathname = [
   'badminton',
 ];
 
-export const AdPositionList = ['homepage'];
-
-export const PositionSizeMap: any = {
-  web: {
-    homepage: {
-      width: 992,
-      height: 100,
-    },
-  },
-  mobile: {
-    homepage: {
-      width: 720,
-      height: 100,
-    },
-  },
-};
-
 export const PlatformList = [
   {
     value: 'web',
@@ -306,7 +289,38 @@ export const PlatformList = [
   },
 ];
 
-export const CreateErrorMessage = {
+export const AdPositionList = ['homepage'];
+
+export const AdImageSizeMaps: {
+  [platform: string]: { [position: string]: { width: number; height: number } };
+} = {
+  [PlatformList[0].value]: {
+    [AdPositionList[0]]: {
+      width: 992,
+      height: 100,
+    },
+  },
+  [PlatformList[1].value]: {
+    [AdPositionList[0]]: {
+      width: 720,
+      height: 100,
+    },
+  },
+  [PlatformList[2].value]: {
+    [AdPositionList[0]]: {
+      width: 720,
+      height: 100,
+    },
+  },
+  [PlatformList[3].value]: {
+    [AdPositionList[0]]: {
+      width: 720,
+      height: 100,
+    },
+  },
+};
+
+export const CreateErrorMessage: any = {
   imageUrl: 'Please input your Ad Image Url!',
   width: 'Please input your Ad Width!',
   height: 'Please input your Ad Height!',
