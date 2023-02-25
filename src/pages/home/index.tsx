@@ -171,15 +171,17 @@ const App: React.FC = () => {
         <Space size="middle">
           <Link to={`./adslotcreate?id=${record.id}`}>Edit</Link>
           {record.status !== 0 ? (
-            <Button onClick={() => offline(record)}>OffLine</Button>
-          ) : (
             <Button
-              onClick={() => {
-                onLine(record);
-              }}
-              type="primary"
+              type="default"
+              size="small"
+              danger
+              onClick={() => offline(record)}
             >
-              OnLine
+              offline
+            </Button>
+          ) : (
+            <Button type="primary" size="small" onClick={() => onLine(record)}>
+              online
             </Button>
           )}
         </Space>
