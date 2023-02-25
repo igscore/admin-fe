@@ -180,6 +180,30 @@ const App: React.FC = (props) => {
     }
   };
 
+  const beforeUpload = (file) => {
+    console.log(file)
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const img = document.createElement('img');
+        img.src = reader.result as string;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          const ctx = canvas.getContext('2d')!;
+          ctx.drawImage(img, 0, 0);
+          ctx.fillStyle = 'red';
+          ctx.textBaseline = 'middle';
+          ctx.font = '13px Arial';
+          ctx.fillText('igscore', 20, 20);
+          canvas.toBlob((result) => resolve(result as any));
+        };
+      };
+    });
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.form}>
@@ -255,12 +279,14 @@ const App: React.FC = (props) => {
           </div>
           <div className={styles.flexright}>
             <Upload
+              accept='image/*'
               name="file"
               listType="picture-card"
               className="avatar-uploader"
               showUploadList={false}
               action="https://api.igscore.com:8080/admin/user/image/upload"
               onChange={handleChange}
+              beforeUpload={beforeUpload}
               withCredentials={true}
             >
               {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
