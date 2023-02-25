@@ -164,13 +164,14 @@ const App: React.FC = (props) => {
 
   const handleChange = (info) => {
     
-    console.log(info.file.name)
+    console.log(info)
     if (info.file.status === 'uploading') {
       setLoading(true);
       return;
     }
     if (info.file.status === 'error') {
       // Get this url from response in real world.
+      setLoading(false);
       console.log(info.file.name)
     }
     if (info.file.status === 'done') {
@@ -181,28 +182,7 @@ const App: React.FC = (props) => {
   };
 
   const beforeUpload = (file) => {
-    console.log(file)
-    return Promise.resolve(file)
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        const img = document.createElement('img');
-        img.src = reader.result as string;
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          canvas.width = img.naturalWidth;
-          canvas.height = img.naturalHeight;
-          const ctx = canvas.getContext('2d')!;
-          ctx.drawImage(img, 0, 0);
-          ctx.fillStyle = 'red';
-          ctx.textBaseline = 'middle';
-          ctx.font = '13px Arial';
-          ctx.fillText('igscore', 20, 20);
-          canvas.toBlob((result) => resolve(result as any));
-        };
-      };
-    });
+    return Promise.resolve(new File([file], `${generateUuid('igad', 10)}_${file.name}`, {type:file.type}))
   }
 
   return (
