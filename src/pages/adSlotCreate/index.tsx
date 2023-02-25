@@ -3,7 +3,7 @@ import { Button, Form, Input, Select, Space, Image, Upload, notification } from 
 import {  RedoOutlined, PlusOutlined, LoadingOutlined, EditOutlined } from '@ant-design/icons';
 import styles from './index.less';
 import { AdPositionList, PlatformList, PositionSizeMap, CreateErrorMessage } from '@/constant/config';
-import { createAd, getAdDetail, updateAd } from '@/model/api';
+import { createAd, getAdDetail, getAdList, updateAd } from '@/model/api';
 import { history } from 'umi';
 import { CountryList } from '@/constant/country';
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
@@ -46,6 +46,10 @@ const App: React.FC = (props) => {
   const [jumpUrl, setJumpUrl] = useState("")
   const [description, setDesc] = useState("")
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    getAdList()
+  }, [])
 
   const checkIsEmpty = () => {
     const values = [title, imageUrl]
