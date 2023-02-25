@@ -50,7 +50,7 @@ const App: React.FC = () => {
       .then((d: any) => {
         setList(
           d.result.filter(
-            (item: DataType) => item.id == 368 || item.createdBy === 'igAdmin',
+            (item: DataType) => item.id === 368 || item.id >= 380,
           ),
         );
         setLoading(false);
