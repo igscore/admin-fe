@@ -1,3 +1,8 @@
+import webHome from '../../public/img/webHome.png';
+import mobileHome from '../../public/img/mobileHome.png';
+import iosLive from '../../public/img/iosLive.png';
+import androidLive from '../../public/img/androidLive.png';
+
 export const LanguageList = [
   {
     value: 'aze',
@@ -291,29 +296,41 @@ export const PlatformList = [
 
 export const AdPositionList = ['homepage'];
 
-export const AdImageSizeMaps: {
-  [platform: string]: { [position: string]: { width: number; height: number } };
-} = {
+interface AdImageInfo {
+  [platform: string]: {
+    [position: string]: {
+      demoImg: string;
+      width: number;
+      height: number;
+    };
+  };
+}
+
+export const AdImageInfoMaps: AdImageInfo = {
   [PlatformList[0].value]: {
     [AdPositionList[0]]: {
+      demoImg: webHome,
       width: 992,
       height: 100,
     },
   },
   [PlatformList[1].value]: {
     [AdPositionList[0]]: {
+      demoImg: mobileHome,
       width: 750,
       height: 88,
     },
   },
   [PlatformList[2].value]: {
     [AdPositionList[0]]: {
+      demoImg: iosLive,
       width: 750,
       height: 88,
     },
   },
   [PlatformList[3].value]: {
     [AdPositionList[0]]: {
+      demoImg: androidLive,
       width: 750,
       height: 88,
     },

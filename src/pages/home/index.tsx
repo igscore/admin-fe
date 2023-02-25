@@ -4,7 +4,7 @@ import type { ColumnsType } from 'antd/es/table';
 import { RedoOutlined, PlusOutlined } from '@ant-design/icons';
 import { getAdList, updateAd } from '@/model/api';
 import { history, Link } from 'umi';
-import { AdImageSizeMaps } from '@/constant/config';
+import { AdImageInfoMaps } from '@/constant/config';
 
 const { confirm } = Modal;
 
@@ -138,7 +138,7 @@ const App: React.FC = () => {
       title: 'Size',
       key: 'width',
       render: (text, record) => {
-        const size = AdImageSizeMaps?.[record.platform]?.[record.position];
+        const size = AdImageInfoMaps?.[record.platform]?.[record.position];
         return size ? `${size.width}px * ${size.height}px` : '';
       },
     },

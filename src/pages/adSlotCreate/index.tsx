@@ -19,7 +19,7 @@ import styles from './index.less';
 import {
   AdPositionList,
   PlatformList,
-  AdImageSizeMaps,
+  AdImageInfoMaps,
   CreateErrorMessage,
 } from '@/constant/config';
 import { createAd, getAdDetail, getAdList, updateAd } from '@/model/api';
@@ -91,8 +91,8 @@ const AdSlotCreate: React.FC<any> = (props) => {
       client: '123',
       platform,
       position: position,
-      width: AdImageSizeMaps[platform][position].width,
-      length: AdImageSizeMaps[platform][position].height,
+      width: AdImageInfoMaps[platform][position].width,
+      length: AdImageInfoMaps[platform][position].height,
       status: 0,
       imageUrl,
       jumpUrl,
@@ -125,8 +125,8 @@ const AdSlotCreate: React.FC<any> = (props) => {
       client: '123',
       platform,
       position,
-      length: AdImageSizeMaps[platform][position].height,
-      width: AdImageSizeMaps[platform][position].width,
+      length: AdImageInfoMaps[platform][position].height,
+      width: AdImageInfoMaps[platform][position].width,
       status: typeof detail.status === 'number' ? detail.status : 1,
       imageUrl,
       jumpUrl,
@@ -269,7 +269,10 @@ const AdSlotCreate: React.FC<any> = (props) => {
               justifyContent: 'flex-end',
             }}
           >
-            <Image width={300} src={require('../../../public/img/home.png')} />
+            <Image
+              width={300}
+              src={AdImageInfoMaps[platform][position].demoImg}
+            />
           </div>
 
           <div className={styles.rowline}>
