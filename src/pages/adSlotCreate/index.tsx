@@ -163,9 +163,9 @@ const App: React.FC = (props) => {
   );
 
   const handleChange = (info) => {
+    
+    console.log(info.file.name)
     if (info.file.status === 'uploading') {
-      info.file.name = generateUuid('file', 10) + info.file.name
-      console.log(info.file.name)
       setLoading(true);
       return;
     }
@@ -182,6 +182,7 @@ const App: React.FC = (props) => {
 
   const beforeUpload = (file) => {
     console.log(file)
+    return Promise.resolve(Object.assign(file, {name: generateUuid('ad_', 10) + file.name}))
     return new Promise((resolve) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
