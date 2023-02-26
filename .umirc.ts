@@ -10,5 +10,6 @@ export default defineConfig({
   hash: true,
   dynamicImport: {
     loading: '@/components/Common/UmiLoading',
-  }
+  },
+  links: [{ rel: 'icon', href: '/img/favicon.ico' }],
 });
