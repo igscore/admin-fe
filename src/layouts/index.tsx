@@ -1,9 +1,13 @@
 import { goLogout } from '@/model/api';
 import { PageContainer, ProLayout, DefaultFooter } from '@ant-design/pro-components';
 import { Button, ConfigProvider } from 'antd';
+import { useCallback } from 'react';
 import { history } from 'umi';
 import enUS from 'antd/locale/en_US';
 import Menu from './menu';
+
+import logo from '../../public/img/logo.png';
+import styles from './index.less';
 
 export default (props: any) => {
   const isLoginPage = history.location.pathname.indexOf('login') > -1;
@@ -14,62 +18,42 @@ export default (props: any) => {
       title: 'admin',
     },
     route: Menu,
-  }
-  if(isLoginPage) {
-    return (
-      <PageContainer style={{ background: '#fff' }}>
-        {props.children}
-      </PageContainer>
-    )
+  };
+
+  const logout = useCallback(() => {
+    goLogout().finally(() => {
+      history.replace('/login');
+    });
+  }, []);
+
+  if (isLoginPage) {
+    return <PageContainer style={{ background: '#fff' }}>{props.children}</PageContainer>;
   }
 
-  const logout = () => {
-    goLogout()
-    .finally(() => {
-      history.replace('/login')
-    })
-  }
   return (
     <ConfigProvider locale={enUS}>
-      <div
-        style={{
-          height: '100vh',
-        }}
-      >
+      <div className={styles.container}>
+        {/* @ts-ignore */}
         <ProLayout
-          loading={false}
           locale="en-US"
-          logo="https://www.igscore.com/img/favicon.ico"
-          title="IgScore AD Platform"
+          title="AD Platform"
+          loading={false}
+          logo={
+            <div className={styles.header}>
+              <img className={styles.logo} src={logo} alt="logo" />
+            </div>
+          }
           menu={{
             defaultOpenAll: true,
             hideMenuWhenCollapsed: true,
-            ignoreFlatMenu: true
+            ignoreFlatMenu: true,
           }}
           {...params}
-          menuItemRender={(item: any, dom) => (
-            <a
-              onClick={() => {
-                history.push(item.path);
-              }}
-            >
-              {dom}
-            </a>
-          )}
-          menuFooterRender={() => {
-            return (
-              <Button onClick={logout}>Log out</Button>
-            );
-          }}
-          footerRender={() => (
-            <DefaultFooter
-              copyright="igscore"
-            />
-          )}
+          menuItemRender={(item: any, dom) => <a onClick={() => history.push(item.path)}>{dom}</a>}
+          menuFooterRender={() => <Button onClick={logout}>Logout</Button>}
+          footerRender={() => <DefaultFooter copyright="igscore" />}
         >
-          <PageContainer style={{ background: '#fff' }}>
-            {props.children}
-          </PageContainer>
+          <PageContainer style={{ background: '#fff' }}>{props.children}</PageContainer>
         </ProLayout>
       </div>
     </ConfigProvider>
