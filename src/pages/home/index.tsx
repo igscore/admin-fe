@@ -51,11 +51,7 @@ const App: React.FC = () => {
     setLoading(true);
     getAdList()
       .then((d: any) => {
-        setList(
-          d.result.filter(
-            (item: DataType) => item.id === 368 || item.id >= 380,
-          ),
-        );
+        setList(d.result.filter((item: DataType) => item.id === 368 || item.id >= 380));
         setLoading(false);
       })
       .catch(() => {
@@ -133,9 +129,7 @@ const App: React.FC = () => {
       dataIndex: 'country',
       key: 'country',
       render: (text, record) => {
-        const country = CountryList.find(
-          (item) => item.value === record.country,
-        );
+        const country = CountryList.find((item) => item.value === record.country);
         return country?.label || '';
       },
     },
@@ -183,14 +177,9 @@ const App: React.FC = () => {
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <Link to={`./adslotcreate?id=${record.id}`}>Edit</Link>
+          <Link to={`./adCreate?id=${record.id}`}>Edit</Link>
           {record.status !== 0 ? (
-            <Button
-              type="default"
-              size="small"
-              danger
-              onClick={() => offline(record)}
-            >
+            <Button type="default" size="small" danger onClick={() => offline(record)}>
               offline
             </Button>
           ) : (
@@ -213,7 +202,7 @@ const App: React.FC = () => {
         <Button
           type="primary"
           onClick={() => {
-            history.push('/adslotcreate');
+            history.push('/adCreate');
           }}
         >
           <PlusOutlined />
@@ -224,12 +213,7 @@ const App: React.FC = () => {
           Refresh
         </Button>
       </Space>
-      <Table
-        loading={loading}
-        columns={columns}
-        dataSource={list}
-        rowKey="id"
-      />
+      <Table loading={loading} columns={columns} dataSource={list} rowKey="id" />
     </div>
   );
 };
