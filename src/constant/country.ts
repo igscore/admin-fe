@@ -319,10 +319,7 @@ export const CountryList = [
   },
   { value: 'BA', label: 'Bosnia and Herzegovina' },
   { value: 'BW', label: 'Botswana' },
-  {
-    value: 'BV',
-    label: 'Bouvet Island',
-  },
+  { value: 'BV', label: 'Bouvet Island' },
   { value: 'BR', label: 'Brazil' },
   { value: 'IO', label: 'British Indian Ocean Territory' },
   {

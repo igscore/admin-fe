@@ -5,30 +5,8 @@ export default [
     component: '@/layouts/index',
     routes: [
       { exact: true, name: 'home', path: '/', component: '@/pages/home' },
-      {
-        exact: true,
-        name: 'slotlist',
-        path: '/slotlist',
-        component: '@/pages/slotList',
-      },
-      {
-        exact: true,
-        name: 'adcreate',
-        path: '/adcreate',
-        component: '@/pages/adcreate',
-      },
-      {
-        exact: true,
-        name: 'adslotcreate',
-        path: '/adslotcreate',
-        component: '@/pages/adSlotCreate',
-      },
-      {
-        exact: true,
-        name: 'login',
-        path: '/login',
-        component: '@/pages/login',
-      },
+      { exact: true, name: 'adCreate', path: '/adCreate', component: '@/pages/adCreate' },
+      { exact: true, name: 'login', path: '/login', component: '@/pages/login' },
     ],
   },
 ];

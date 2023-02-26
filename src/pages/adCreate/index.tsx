@@ -1,27 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import {
-  Button,
-  Form,
-  Input,
-  Select,
-  Space,
-  Image,
-  Upload,
-  notification,
-} from 'antd';
-import {
-  RedoOutlined,
-  PlusOutlined,
-  LoadingOutlined,
-  EditOutlined,
-} from '@ant-design/icons';
+import { Button, Form, Input, Select, Space, Image, Upload, notification } from 'antd';
+import { RedoOutlined, PlusOutlined, LoadingOutlined, EditOutlined } from '@ant-design/icons';
 import styles from './index.less';
-import {
-  AdPositionList,
-  PlatformList,
-  AdImageInfoMaps,
-  CreateErrorMessage,
-} from '@/constant/config';
+import { AdPositionList, PlatformList, AdImageInfoMaps, CreateErrorMessage } from '@/constant/config';
 import { createAd, getAdDetail, getAdList, updateAd } from '@/model/api';
 import { history } from 'umi';
 import { CountryList } from '@/constant/country';
@@ -47,7 +28,7 @@ export const generateUuid = (prefix: string, length: number) => {
   return `${!prefix ? '' : prefix}${uuid.slice(0, len)}`;
 };
 
-const AdSlotCreate: React.FC<any> = (props) => {
+const AdCreate: React.FC<any> = (props) => {
   const { id } = props.location.query;
   const [detail, setDetail] = useState<any>({});
   const [title, setTitle] = useState<string>('');
@@ -59,10 +40,7 @@ const AdSlotCreate: React.FC<any> = (props) => {
   const [description, setDesc] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
-  const imgInfo = useMemo(
-    () => AdImageInfoMaps[platform][position],
-    [platform, position],
-  );
+  const imgInfo = useMemo(() => AdImageInfoMaps[platform][position], [platform, position]);
 
   const checkIsEmpty = useCallback(() => {
     const values = [title, imageUrl];
@@ -148,16 +126,7 @@ const AdSlotCreate: React.FC<any> = (props) => {
           description: 'please try again',
         });
       });
-  }, [
-    detail,
-    title,
-    country,
-    platform,
-    position,
-    imageUrl,
-    jumpUrl,
-    description,
-  ]);
+  }, [detail, title, country, platform, position, imageUrl, jumpUrl, description]);
 
   const handleChange = useCallback((info: any) => {
     console.log(info);
@@ -365,4 +334,4 @@ const AdSlotCreate: React.FC<any> = (props) => {
   );
 };
 
-export default AdSlotCreate;
+export default AdCreate;

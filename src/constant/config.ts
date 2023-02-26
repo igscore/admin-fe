@@ -338,8 +338,8 @@ export const AdImageInfoMaps: AdImageInfo = {
 };
 
 export const CreateErrorMessage: any = {
-  imageUrl: 'Please input your Ad Image Url!',
-  width: 'Please input your Ad Width!',
-  height: 'Please input your Ad Height!',
-  title: 'Please input your Ad Title!',
+  imageUrl: 'Please input your AD Image Url!',
+  width: 'Please input your AD Width!',
+  height: 'Please input your AD Height!',
+  title: 'Please input your AD Title!',
 };

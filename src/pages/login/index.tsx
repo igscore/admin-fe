@@ -1,96 +1,89 @@
-import React, { useEffect, useState } from 'react';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import React, { useCallback, useState } from 'react';
 import { notification, Button, Form, Input } from 'antd';
-import styles from './index.less';
 import { goLogin } from '@/model/api';
 import { history } from 'umi';
 
-const ue = 'ue-n'
-const ud = 'ue-d'
+import logo from '../../../public/img/logo.png';
+import styles from './index.less';
 
-const App: React.FC = () => {
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-    goToLogin()
-  };
+const ue = 'ue-n';
+const ud = 'ue-d';
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-  };
+const Login: React.FC = () => {
+  const [username, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const [username, setName] = useState('')
-  const [password, setPassworrd] = useState('')
+  const showError = useCallback((message: string) => {
+    notification.error({ key: 'login', message: 'Error', description: message });
+  }, []);
 
-  useEffect(() => {
-    // const name = localStorage.getItem(ue)
-    // const pwd = localStorage.getItem(ud)
-    // if(name) {
-    //   setName(name)
-    // }
-    // if(pwd) {
-    //   setPassworrd(pwd)
-    // }
+  const goToLogin = useCallback(() => {
+    setLoading(true);
+    goLogin({ username, password })
+      .then((res: any) => {
+        if (res.code === 'A00000' && res.message === 'Success.') {
+          localStorage.setItem(ue, username);
+          localStorage.setItem(ud, password);
+          notification.success({
+            key: 'login',
+            message: 'Success',
+            description: 'login successfully.',
+          });
+          history.replace('/');
+        } else {
+          showError(res.message || 'Login failed.');
+        }
+      })
+      .catch((e) => {
+        console.log(e.response.data.message);
+        showError(e.response.data.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [username, password]);
 
-  }, [])
-
-  const showError = (message: string) => {
-    notification.error({
-      key: 'error login',
-      message: 'Error',
-      description: message,
-    })
-  }
-
-  const goToLogin = () => {
-    goLogin({username, password})
-    .then((res: any) => {
-      if(res.code === 'A00000' && res.message === 'Success.') {
-        localStorage.setItem(ue, username)
-        localStorage.setItem(ud, password)
-        notification.success({
-          key: 'success login',
-          message: 'Success',
-          description: 'Success Login',
-        })
-        history.replace('/')
-      } else {
-        showError(res.message || 'Login fail')
-      }
-    })
-    .catch((e) => {
-      console.log(e.response.data.message)
-      showError(e.response.data.message)
-    })
-  }
+  const onFinish = useCallback(
+    (values: any) => {
+      console.log('Success:', values);
+      goToLogin();
+    },
+    [goToLogin],
+  );
 
   return (
     <div className={styles.container}>
-      <div className={styles.form}>
-        <Form
-          name="basic"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-          autoComplete="off"
-        >
-          <Form.Item
-            label="Username"
-            name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
-          >
-            <Input defaultValue={username} onChange={(e) => {setName(e.target.value)}} />
+      <div className={styles.content}>
+        <div className={styles.header}>
+          <img className={styles.logo} src={logo} alt="logo" />
+        </div>
+        <Form name="basic" initialValues={{ remember: true }} onFinish={onFinish} autoComplete="off">
+          <Form.Item name="username" rules={[{ required: true, message: 'Please input your username!' }]}>
+            <Input
+              prefix={<UserOutlined />}
+              size="large"
+              defaultValue={username}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            />
           </Form.Item>
 
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
-          >
-            <Input.Password defaultValue={password} onChange={(e) => {setPassworrd(e.target.value)}}  />
+          <Form.Item name="password" rules={[{ required: true, message: 'Please input your password!' }]}>
+            <Input.Password
+              prefix={<LockOutlined />}
+              size="large"
+              defaultValue={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
+          <Form.Item>
+            <Button loading={loading} type="primary" size="large" block htmlType="submit">
               Login
             </Button>
           </Form.Item>
@@ -100,4 +93,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Login;
