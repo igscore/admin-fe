@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Button,
   Form,
@@ -48,8 +48,7 @@ export const generateUuid = (prefix: string, length: number) => {
 };
 
 const AdSlotCreate: React.FC<any> = (props) => {
-  const [id] = useState<string>(props.location.query.id);
-  const [isCreate] = useState<boolean>(!id);
+  const { id } = props.location.query;
   const [detail, setDetail] = useState<any>({});
   const [title, setTitle] = useState<string>('');
   const [country, setCountry] = useState<string>('US');
@@ -60,11 +59,12 @@ const AdSlotCreate: React.FC<any> = (props) => {
   const [description, setDesc] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    getAdList();
-  }, []);
+  const imgInfo = useMemo(
+    () => AdImageInfoMaps[platform][position],
+    [platform, position],
+  );
 
-  const checkIsEmpty = () => {
+  const checkIsEmpty = useCallback(() => {
     const values = [title, imageUrl];
     const valueKeys = ['title', 'imageUrl'];
     for (let i = 0; i < values.length; i++) {
@@ -78,9 +78,9 @@ const AdSlotCreate: React.FC<any> = (props) => {
       }
     }
     return true;
-  };
+  }, [title, imageUrl]);
 
-  const onFinish = () => {
+  const onFinish = useCallback(() => {
     if (!checkIsEmpty()) {
       return false;
     }
@@ -90,8 +90,8 @@ const AdSlotCreate: React.FC<any> = (props) => {
       country,
       platform,
       position: position,
-      width: AdImageInfoMaps[platform][position].width,
-      length: AdImageInfoMaps[platform][position].height,
+      width: imgInfo.width,
+      length: imgInfo.height,
       status: 0,
       imageUrl,
       jumpUrl,
@@ -114,9 +114,9 @@ const AdSlotCreate: React.FC<any> = (props) => {
           description: 'please try again',
         });
       });
-  };
+  }, []);
 
-  const onUpdateFinish = () => {
+  const onUpdateFinish = useCallback(() => {
     if (!checkIsEmpty()) return false;
     updateAd({
       id: detail.id || '',
@@ -124,8 +124,8 @@ const AdSlotCreate: React.FC<any> = (props) => {
       country: country,
       platform,
       position,
-      length: AdImageInfoMaps[platform][position].height,
-      width: AdImageInfoMaps[platform][position].width,
+      length: imgInfo.height,
+      width: imgInfo.width,
       status: typeof detail.status === 'number' ? detail.status : 1,
       imageUrl,
       jumpUrl,
@@ -148,34 +148,18 @@ const AdSlotCreate: React.FC<any> = (props) => {
           description: 'please try again',
         });
       });
-  };
+  }, [
+    detail,
+    title,
+    country,
+    platform,
+    position,
+    imageUrl,
+    jumpUrl,
+    description,
+  ]);
 
-  useEffect(() => {
-    if (!id) return;
-    getAdDetail(id).then((d: any) => {
-      const { result } = d;
-      if (result) {
-        console.log(result);
-        setDetail(result);
-        setTitle(result.name);
-        setCountry(result.country);
-        setPlatform(result.platform);
-        setPosition(result.position);
-        setLink(result.imageUrl);
-        setJumpUrl(result.jumpUrl);
-        setDesc(result.description);
-      }
-    });
-  }, [id]);
-
-  const uploadButton = (
-    <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
-
-  const handleChange = (info: any) => {
+  const handleChange = useCallback((info: any) => {
     console.log(info);
     if (info.file.status === 'uploading') {
       setLoading(true);
@@ -191,23 +175,46 @@ const AdSlotCreate: React.FC<any> = (props) => {
       setLoading(false);
       setLink(`https://www.igscore.com/static-images/ads/${info.file.name}`);
     }
-  };
+  }, []);
 
-  const beforeUpload = (file: any) => {
+  const beforeUpload = useCallback((file: File) => {
     return Promise.resolve(
       new File([file], `${generateUuid('igad', 10)}_${file.name}`, {
         type: file.type,
       }),
     );
-  };
+  }, []);
+
+  useEffect(() => {
+    getAdList();
+  }, []);
+
+  useEffect(() => {
+    if (id) {
+      getAdDetail(id).then((d: any) => {
+        const { result } = d;
+        if (result) {
+          console.log(result);
+          setDetail(result);
+          setTitle(result.name);
+          setCountry(result.country);
+          setPlatform(result.platform);
+          setPosition(result.position);
+          setLink(result.imageUrl);
+          setJumpUrl(result.jumpUrl);
+          setDesc(result.description);
+        }
+      });
+    }
+  }, [id]);
 
   return (
     <div className={styles.container}>
       <div className={styles.form}>
-        <h1>{isCreate ? 'Create' : 'Update'}</h1>
+        <h1>{id ? 'Edit AD' : 'Create AD'}</h1>
         <div>
-          <div className={styles.rowline}>
-            <span className={styles.lable}>Title: </span>
+          <div className={styles.row}>
+            <span className={styles.label}>Title: </span>
             <Input
               defaultValue={title}
               value={title}
@@ -218,8 +225,8 @@ const AdSlotCreate: React.FC<any> = (props) => {
             />
           </div>
 
-          <div className={styles.rowline}>
-            <span className={styles.lable}>Country of delivery: </span>
+          <div className={styles.row}>
+            <span className={styles.label}>Country of delivery: </span>
             <Select
               placeholder="country of delivery"
               value={country}
@@ -227,13 +234,13 @@ const AdSlotCreate: React.FC<any> = (props) => {
                 console.log(e);
                 setCountry(e);
               }}
-              style={{ width: '408px' }}
+              style={{ width: 408 }}
               options={CountryList}
             />
           </div>
 
-          <div className={styles.rowline}>
-            <span className={styles.lable}>Platform of delivery: </span>
+          <div className={styles.row}>
+            <span className={styles.label}>Platform of delivery: </span>
             <Select
               placeholder="platform of delivery"
               // defaultValue={"1"}
@@ -241,20 +248,20 @@ const AdSlotCreate: React.FC<any> = (props) => {
               onChange={(e) => {
                 setPlatform(e);
               }}
-              style={{ width: '408px' }}
+              style={{ width: 408 }}
               options={PlatformList}
             />
           </div>
 
-          <div className={styles.rowline}>
-            <span className={styles.lable}>Position of delivery: </span>
+          <div className={styles.row}>
+            <span className={styles.label}>Position of delivery: </span>
             <Select
               placeholder="position of delivery"
               value={position}
               onChange={(e) => {
                 setPosition(e);
               }}
-              style={{ width: '408px' }}
+              style={{ width: 408 }}
               options={PositionList}
             />
           </div>
@@ -267,14 +274,18 @@ const AdSlotCreate: React.FC<any> = (props) => {
               justifyContent: 'flex-end',
             }}
           >
-            <Image
-              width={300}
-              src={AdImageInfoMaps[platform][position].demoImg}
-            />
+            <Image width={300} src={imgInfo.demoImg} />
           </div>
 
-          <div className={styles.rowline}>
-            <span className={styles.lable}>Ad Image Url: </span>
+          <div className={styles.row} style={{ color: '#c1272d' }}>
+            <span className={styles.label}>AD Image Size: </span>
+            <div style={{ width: 408 }}>
+              {imgInfo.width}px(width) * {imgInfo.height}px(height)
+            </div>
+          </div>
+
+          <div className={styles.row}>
+            <span className={styles.label}>AD Image Url: </span>
             <Input
               value={imageUrl}
               onChange={(e) => {
@@ -283,7 +294,7 @@ const AdSlotCreate: React.FC<any> = (props) => {
               placeholder="Input Link or Upload a Image file"
             />
           </div>
-          <div className={styles.flexright}>
+          <div className={styles.flexRight}>
             <Upload
               accept="image/*"
               name="file"
@@ -298,13 +309,16 @@ const AdSlotCreate: React.FC<any> = (props) => {
               {imageUrl ? (
                 <img src={imageUrl} alt="avatar" style={{ width: '100%' }} />
               ) : (
-                uploadButton
+                <div>
+                  {loading ? <LoadingOutlined /> : <PlusOutlined />}
+                  <div style={{ marginTop: 8 }}>Upload</div>
+                </div>
               )}
             </Upload>
           </div>
 
-          <div className={styles.rowline}>
-            <span className={styles.lable}>Access url: </span>
+          <div className={styles.row}>
+            <span className={styles.label}>Access url: </span>
             <Input
               value={jumpUrl}
               onChange={(e) => {
@@ -314,8 +328,8 @@ const AdSlotCreate: React.FC<any> = (props) => {
             />
           </div>
 
-          <div className={styles.rowline}>
-            <span className={styles.lable}>Ad Description: </span>
+          <div className={styles.row}>
+            <span className={styles.label}>AD Description: </span>
             <TextArea
               value={description}
               onChange={(e) => {
@@ -327,16 +341,16 @@ const AdSlotCreate: React.FC<any> = (props) => {
           </div>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Space wrap style={{ marginBottom: 16 }}>
-              {isCreate ? (
-                <Button type="primary" onClick={onFinish}>
-                  <PlusOutlined />
-                  Create
-                </Button>
-              ) : (
+            <Space wrap style={{ margin: '20px 0' }}>
+              {id ? (
                 <Button type="primary" onClick={onUpdateFinish}>
                   <EditOutlined />
                   Update
+                </Button>
+              ) : (
+                <Button type="primary" onClick={onFinish}>
+                  <PlusOutlined />
+                  Create
                 </Button>
               )}
               <Button onClick={() => history.replace('/')}>

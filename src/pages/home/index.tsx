@@ -1,3 +1,4 @@
+import { CountryList } from '@/constant/country';
 import React, { useEffect, useState } from 'react';
 import { Space, Table, Modal, Button, notification, Tag, Image } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
@@ -16,6 +17,7 @@ interface DataType {
   image: string;
   status: 0 | 1;
   imageUrl: string;
+  country: string;
   position: string;
   platform: string;
   createdBy: string;
@@ -125,6 +127,17 @@ const App: React.FC = () => {
       dataIndex: 'imageUrl',
       key: 'imageUrl',
       render: (text, record) => <Image width={300} src={record.imageUrl} />,
+    },
+    {
+      title: 'Country',
+      dataIndex: 'country',
+      key: 'country',
+      render: (text, record) => {
+        const country = CountryList.find(
+          (item) => item.value === record.country,
+        );
+        return country?.label || '';
+      },
     },
     {
       title: 'Platform',
