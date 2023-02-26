@@ -82,7 +82,7 @@ const Login: React.FC = () => {
 
           <Form.Item>
             <Button loading={loading} type="primary" size="large" block htmlType="submit">
-              Login
+              Log in
             </Button>
           </Form.Item>
         </Form>

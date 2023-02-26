@@ -50,7 +50,7 @@ export default (props: any) => {
           }}
           {...params}
           menuItemRender={(item: any, dom) => <a onClick={() => history.push(item.path)}>{dom}</a>}
-          menuFooterRender={() => <Button onClick={logout}>Logout</Button>}
+          menuFooterRender={() => <Button onClick={logout}>Log out</Button>}
           footerRender={() => <DefaultFooter copyright="igscore" />}
         >
           <PageContainer style={{ background: '#fff' }}>{props.children}</PageContainer>
