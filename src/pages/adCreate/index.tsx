@@ -21,9 +21,9 @@ export const generateUuid = (prefix: string, length: number) => {
   const len = !length ? uuidStr.length : length;
   let date = Date.now();
   const uuid = uuidStr.replace(/[xy]/g, (c) => {
-    const r = (date + Math.random() * 16) % 16 | 0; // eslint-disable-line no-bitwise
+    const r = (date + Math.random() * 16) % 16 | 0;
     date = Math.floor(date / 16);
-    return (c === 'x' ? r : (r & 0x7) | 0x8).toString(16); // eslint-disable-line no-bitwise
+    return (c === 'x' ? r : (r & 0x7) | 0x8).toString(16);
   });
   return `${!prefix ? '' : prefix}${uuid.slice(0, len)}`;
 };
