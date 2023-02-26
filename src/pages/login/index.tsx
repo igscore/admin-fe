@@ -65,9 +65,8 @@ const Login: React.FC = () => {
               prefix={<UserOutlined />}
               size="large"
               defaultValue={username}
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
+              disabled={loading}
+              onChange={(e) => setName(e.target.value)}
             />
           </Form.Item>
 
@@ -76,9 +75,8 @@ const Login: React.FC = () => {
               prefix={<LockOutlined />}
               size="large"
               defaultValue={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              disabled={loading}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Item>
 
