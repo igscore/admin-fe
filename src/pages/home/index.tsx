@@ -152,16 +152,6 @@ const App: React.FC = () => {
       },
     },
     {
-      title: 'Description',
-      dataIndex: 'description',
-      key: 'description',
-    },
-    {
-      title: 'CreatedBy',
-      dataIndex: 'createdBy',
-      key: 'createdBy',
-    },
-    {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
