@@ -242,13 +242,13 @@ const AdCreate: React.FC<any> = (props) => {
               justifyContent: 'flex-end',
             }}
           >
-            <Image width={300} src={imgInfo.demoImg} />
+            <Image width={300} src={imgInfo?.demoImg || ''} />
           </div>
 
           <div className={styles.row} style={{ color: '#c1272d' }}>
             <span className={styles.label}>AD Image Size: </span>
             <div style={{ width: 408 }}>
-              {imgInfo.width}px(width) * {imgInfo.height}px(height)
+              {imgInfo?.width || 0}px(width) * {imgInfo?.height || 0}px(height)
             </div>
           </div>
 
