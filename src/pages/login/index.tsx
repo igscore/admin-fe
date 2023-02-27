@@ -37,8 +37,10 @@ const Login: React.FC = () => {
         }
       })
       .catch((e) => {
-        console.log(e.response.data.message);
-        showError(e.response.data.message);
+        console.error(e?.response?.data?.message);
+        showError(e?.response?.data?.message || 'Login failed.');
+        // localStorage.setItem(ue, username);
+        // localStorage.setItem(ud, password);
       })
       .finally(() => {
         setLoading(false);

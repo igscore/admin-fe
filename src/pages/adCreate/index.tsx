@@ -89,10 +89,12 @@ const AdCreate: React.FC<any> = (props) => {
           description: 'please try again',
         });
       });
-  }, []);
+  }, [title, imageUrl]);
 
   const onUpdateFinish = useCallback(() => {
-    if (!checkIsEmpty()) return false;
+    if (!checkIsEmpty()) {
+      return false;
+    }
     updateAd({
       id: detail.id || '',
       name: title,
@@ -185,41 +187,28 @@ const AdCreate: React.FC<any> = (props) => {
         <div>
           <div className={styles.row}>
             <span className={styles.label}>Title: </span>
-            <Input
-              defaultValue={title}
-              value={title}
-              placeholder="please input the title"
-              onChange={(e) => {
-                setTitle(e.target.value);
-              }}
-            />
+            <Input value={title} placeholder="please input the title" onChange={(e) => setTitle(e.target.value)} />
           </div>
 
           <div className={styles.row}>
             <span className={styles.label}>Country of delivery: </span>
             <Select
-              placeholder="country of delivery"
-              value={country}
-              onChange={(e) => {
-                console.log(e);
-                setCountry(e);
-              }}
               style={{ width: 408 }}
               options={CountryList}
+              value={country}
+              placeholder="country of delivery"
+              onChange={(e) => setCountry(e)}
             />
           </div>
 
           <div className={styles.row}>
             <span className={styles.label}>Platform of delivery: </span>
             <Select
-              placeholder="platform of delivery"
-              // defaultValue={"1"}
-              value={platform}
-              onChange={(e) => {
-                setPlatform(e);
-              }}
               style={{ width: 408 }}
               options={PlatformList}
+              value={platform}
+              placeholder="platform of delivery"
+              onChange={(e) => setPlatform(e)}
             />
           </div>
 
