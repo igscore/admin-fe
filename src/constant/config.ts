@@ -334,6 +334,7 @@ export const AdImageInfoMaps: AdImageInfo = {
       width: 750,
       height: 88,
     },
+
     matchPageBottom: {
       demoImg: mobileHome,
       width: 750,
