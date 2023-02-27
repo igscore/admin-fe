@@ -22,7 +22,14 @@ export const generateUuid = (prefix: string, length: number) => {
 };
 
 const AdCreate: React.FC<any> = (props) => {
-  const { id } = props.location.query;
+  const { id, copy } = props.location.query;
+  const { isCreated, isCopy } = useMemo(
+    () => ({
+      isCopy: copy === '1',
+      isCreated: copy === '1' || !id,
+    }),
+    [id, copy],
+  );
   const [detail, setDetail] = useState<any>({});
   const [title, setTitle] = useState<string>('');
   const [country, setCountry] = useState<string>('US');
@@ -55,7 +62,7 @@ const AdCreate: React.FC<any> = (props) => {
     return true;
   }, [title, imageUrl]);
 
-  const onFinish = useCallback(() => {
+  const onCreate = useCallback(() => {
     if (!checkIsEmpty()) {
       return false;
     }
@@ -78,7 +85,7 @@ const AdCreate: React.FC<any> = (props) => {
         notification.success({
           key: 'success',
           message: 'Success',
-          description: 'Create Successed',
+          description: 'Created successfully.',
         });
         history.replace('/');
       })
@@ -91,7 +98,7 @@ const AdCreate: React.FC<any> = (props) => {
       });
   }, [title, imageUrl]);
 
-  const onUpdateFinish = useCallback(() => {
+  const onEdit = useCallback(() => {
     if (!checkIsEmpty()) {
       return false;
     }
@@ -114,7 +121,7 @@ const AdCreate: React.FC<any> = (props) => {
         notification.success({
           key: 'success',
           message: 'Success',
-          description: 'Update Successed',
+          description: 'Modified successfully.',
         });
         history.replace('/');
       })
@@ -122,7 +129,7 @@ const AdCreate: React.FC<any> = (props) => {
         notification.error({
           key: 'error update',
           message: 'Error',
-          description: 'please try again',
+          description: 'Please try again.',
         });
       });
   }, [detail, title, country, platform, position, imageUrl, jumpUrl, description]);
@@ -162,9 +169,8 @@ const AdCreate: React.FC<any> = (props) => {
   }, []);
 
   useEffect(() => {
-    if (id) {
-      getAdDetail(id).then((d: any) => {
-        const { result } = d;
+    if (!isCreated || isCopy) {
+      getAdDetail(id).then(({ result }: any) => {
         if (result) {
           console.log(result);
           setDetail(result);
@@ -178,12 +184,12 @@ const AdCreate: React.FC<any> = (props) => {
         }
       });
     }
-  }, [id]);
+  }, [id, isCreated, isCopy]);
 
   return (
     <div className={styles.container}>
       <div className={styles.form}>
-        <h1>{id ? 'Edit AD' : 'Create AD'}</h1>
+        <h1>{isCreated ? 'Create AD' : 'Edit AD'}</h1>
         <div>
           <div className={styles.row}>
             <span className={styles.label}>Title: </span>
@@ -299,15 +305,15 @@ const AdCreate: React.FC<any> = (props) => {
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Space wrap style={{ margin: '20px 0' }}>
-              {id ? (
-                <Button type="primary" onClick={onUpdateFinish}>
-                  <EditOutlined />
-                  Update
-                </Button>
-              ) : (
-                <Button type="primary" onClick={onFinish}>
+              {isCreated ? (
+                <Button type="primary" onClick={onCreate}>
                   <PlusOutlined />
                   Create
+                </Button>
+              ) : (
+                <Button type="primary" onClick={onEdit}>
+                  <EditOutlined />
+                  Update
                 </Button>
               )}
               <Button onClick={() => history.replace('/')}>

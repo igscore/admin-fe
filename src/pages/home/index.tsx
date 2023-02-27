@@ -13,35 +13,22 @@ interface DataType {
   key: string;
   name: string;
   id: number;
-  size: string;
+  client: string;
+  width: string;
+  length: string;
   image: string;
   status: 0 | 1;
   imageUrl: string;
+  jumpUrl: string;
   country: string;
   position: string;
   platform: string;
+  description: string;
   createdBy: string;
+  modifiedBy: string;
+  startTime: number;
+  endTime: number;
 }
-
-// const data: any[] = [
-//   {
-//     "id": 470973,
-//     "name": "test",
-//     "country": "CN",
-//     "client": "123",
-//     "platform": "ios",
-//     "position": "homepage",
-//     "length": 300,
-//     "width": 100,
-//     "status": 1,
-//     "imageUrl": "http://fasdfasf",
-//     "description": "web home page",
-//     "modifiedBy": "igscore",
-//     "createdBy": "igscore",
-//     "startTime": 1672924629,
-//     "endTime": 1794431829
-//   }
-// ];
 
 const App: React.FC = () => {
   const [list, setList] = useState([]);
@@ -168,6 +155,7 @@ const App: React.FC = () => {
       render: (_, record) => (
         <Space size="middle">
           <Link to={`./adCreate?id=${record.id}`}>Edit</Link>
+          <Link to={`./adCreate?id=${record.id}&copy=1`}>Copy</Link>
           {record.status !== 0 ? (
             <Button type="default" size="small" danger onClick={() => offline(record)}>
               offline
