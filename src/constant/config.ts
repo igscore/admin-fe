@@ -329,12 +329,12 @@ export const AdImageInfoMaps: AdImageInfo = {
     },
   },
   [PlatformEnum.mobile]: {
-    liveMatch: {
+    liveTop: {
       demoImg: mobileHome,
       width: 750,
       height: 88,
     },
-    matchPage: {
+    matchPageBottom: {
       demoImg: mobileHome,
       width: 750,
       height: 88,
