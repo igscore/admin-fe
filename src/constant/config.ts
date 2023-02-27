@@ -1,7 +1,6 @@
 import webHome from '../../public/img/webHome.png';
 import mobileHome from '../../public/img/mobileHome.png';
-import iosLive from '../../public/img/iosLive.png';
-import androidLive from '../../public/img/androidLive.png';
+import appLive from '../../public/img/iosLive.png';
 
 export const LanguageList = [
   {
@@ -275,26 +274,31 @@ export const GlobalSportPathname = [
   'badminton',
 ];
 
+enum PlatformEnum {
+  web = 'web',
+  mobile = 'mobile',
+  ios = 'ios',
+  android = 'android',
+}
+
 export const PlatformList = [
   {
-    value: 'web',
+    value: PlatformEnum.web,
     label: 'pc web',
   },
   {
-    value: 'mobile',
+    value: PlatformEnum.mobile,
     label: 'mobile web',
   },
   {
-    value: 'ios',
+    value: PlatformEnum.ios,
     label: 'ios app',
   },
   {
-    value: 'android',
+    value: PlatformEnum.android,
     label: 'android app',
   },
 ];
-
-export const AdPositionList = ['homepage'];
 
 interface AdImageInfo {
   [platform: string]: {
@@ -307,32 +311,107 @@ interface AdImageInfo {
 }
 
 export const AdImageInfoMaps: AdImageInfo = {
-  [PlatformList[0].value]: {
-    [AdPositionList[0]]: {
+  [PlatformEnum.web]: {
+    homepage: {
       demoImg: webHome,
       width: 992,
       height: 100,
     },
+    topBanner: {
+      demoImg: webHome,
+      width: 1200,
+      height: 90,
+    },
+    sideBanner: {
+      demoImg: webHome,
+      width: 200,
+      height: 200,
+    },
   },
-  [PlatformList[1].value]: {
-    [AdPositionList[0]]: {
+  [PlatformEnum.mobile]: {
+    homepage: {
+      demoImg: mobileHome,
+      width: 750,
+      height: 88,
+    },
+    matchPage: {
       demoImg: mobileHome,
       width: 750,
       height: 88,
     },
   },
-  [PlatformList[2].value]: {
-    [AdPositionList[0]]: {
-      demoImg: iosLive,
+  [PlatformEnum.ios]: {
+    openScreen: {
+      demoImg: appLive,
+      width: 750,
+      height: 1160,
+    },
+    liveMatch: {
+      demoImg: appLive,
+      width: 750,
+      height: 100,
+    },
+    liveBottom: {
+      demoImg: appLive,
+      width: 750,
+      height: 100,
+    },
+    matchChatTab: {
+      demoImg: appLive,
       width: 750,
       height: 88,
     },
-  },
-  [PlatformList[3].value]: {
-    [AdPositionList[0]]: {
-      demoImg: androidLive,
+    matchOddsBottom: {
+      demoImg: appLive,
       width: 750,
       height: 88,
+    },
+    matchOverviewTab: {
+      demoImg: appLive,
+      width: 750,
+      height: 56,
+    },
+    sidebarBottom: {
+      demoImg: appLive,
+      width: 512,
+      height: 56,
+    },
+  },
+  [PlatformEnum.android]: {
+    openScreen: {
+      demoImg: appLive,
+      width: 750,
+      height: 1160,
+    },
+    liveMatch: {
+      demoImg: appLive,
+      width: 750,
+      height: 100,
+    },
+    liveBottom: {
+      demoImg: appLive,
+      width: 750,
+      height: 100,
+    },
+    matchChatTab: {
+      demoImg: appLive,
+      width: 750,
+      height: 88,
+    },
+    matchOddsBottom: {
+      demoImg: appLive,
+      width: 750,
+      height: 88,
+    },
+    matchOverviewTab: {
+      demoImg: appLive,
+      width: 750,
+      height: 56,
+    },
+    sidebarBottom: {
+      demoImg: appLive,
+      width: 512,
+      height: 56,
     },
   },
 };

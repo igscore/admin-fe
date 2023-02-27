@@ -2,19 +2,12 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button, Form, Input, Select, Space, Image, Upload, notification } from 'antd';
 import { RedoOutlined, PlusOutlined, LoadingOutlined, EditOutlined } from '@ant-design/icons';
 import styles from './index.less';
-import { AdPositionList, PlatformList, AdImageInfoMaps, CreateErrorMessage } from '@/constant/config';
+import { PlatformList, AdImageInfoMaps, CreateErrorMessage } from '@/constant/config';
 import { createAd, getAdDetail, getAdList, updateAd } from '@/model/api';
 import { history } from 'umi';
 import { CountryList } from '@/constant/country';
 
 const { TextArea } = Input;
-
-const PositionList = AdPositionList.map((item) => {
-  return {
-    value: item,
-    label: item,
-  };
-});
 
 export const generateUuid = (prefix: string, length: number) => {
   const uuidStr = 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx';
@@ -34,12 +27,16 @@ const AdCreate: React.FC<any> = (props) => {
   const [title, setTitle] = useState<string>('');
   const [country, setCountry] = useState<string>('US');
   const [platform, setPlatform] = useState<string>('web');
-  const [position, setPosition] = useState<string>(PositionList[0].value);
+  const [position, setPosition] = useState<string>('');
   const [imageUrl, setLink] = useState<string>('');
   const [jumpUrl, setJumpUrl] = useState<string>('');
   const [description, setDesc] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
+  const positionList = useMemo(
+    () => Object.keys(AdImageInfoMaps[platform]).map((value) => ({ value, label: value })),
+    [platform],
+  );
   const imgInfo = useMemo(() => AdImageInfoMaps[platform][position], [platform, position]);
 
   const checkIsEmpty = useCallback(() => {
@@ -155,6 +152,10 @@ const AdCreate: React.FC<any> = (props) => {
   }, []);
 
   useEffect(() => {
+    setPosition(positionList[0].value);
+  }, [positionList]);
+
+  useEffect(() => {
     getAdList();
   }, []);
 
@@ -225,13 +226,11 @@ const AdCreate: React.FC<any> = (props) => {
           <div className={styles.row}>
             <span className={styles.label}>Position of delivery: </span>
             <Select
-              placeholder="position of delivery"
-              value={position}
-              onChange={(e) => {
-                setPosition(e);
-              }}
               style={{ width: 408 }}
-              options={PositionList}
+              placeholder="position of delivery"
+              options={positionList}
+              value={position}
+              onChange={(e) => setPosition(e)}
             />
           </div>
 
