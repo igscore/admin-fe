@@ -155,7 +155,7 @@ const App: React.FC = () => {
       render: (_, record) => (
         <Space size="middle">
           <Link to={`./adCreate?id=${record.id}`}>Edit</Link>
-          <Link to={`./adCreate?id=${record.id}&copy=1`}>Copy</Link>
+          {/*<Link to={`./adCreate?id=${record.id}&copy=1`}>Copy</Link>*/}
           {record.status !== 0 ? (
             <Button type="default" size="small" danger onClick={() => offline(record)}>
               offline
