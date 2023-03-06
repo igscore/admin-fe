@@ -109,7 +109,7 @@ const App: React.FC = () => {
       title: 'Image',
       dataIndex: 'imageUrl',
       key: 'imageUrl',
-      render: (text, record) => <Image width={120} src={record.imageUrl} />,
+      render: (text, record) => <Image style={{ maxWidth: 120, maxHeight: 40 }} src={record.imageUrl} />,
     },
     {
       title: 'Country',

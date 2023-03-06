@@ -229,15 +229,13 @@ const AdCreate: React.FC<any> = (props) => {
             />
           </div>
 
-          <div
-            style={{
-              position: 'relative',
-              marginBottom: '20px',
-              display: 'flex',
-              justifyContent: 'flex-end',
-            }}
-          >
-            <Image width={300} src={imgInfo?.demoImg || ''} />
+          <div className={styles.row} style={{ justifyContent: 'flex-start' }}>
+            <span className={styles.label} style={{ width: 170 }}>
+              Position Preview:{' '}
+            </span>
+            <div>
+              <Image style={{ maxWidth: 230, maxHeight: 120 }} src={imgInfo?.demoImg || ''} />
+            </div>
           </div>
 
           <div className={styles.row} style={{ color: '#c1272d' }}>

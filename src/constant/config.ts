@@ -1,6 +1,8 @@
 import webHome from '../../public/img/webHome.png';
 import mobileHome from '../../public/img/mobileHome.png';
 import appLive from '../../public/img/iosLive.png';
+import androidLiveMatch from '../../public/img/androidLiveMatch.jpeg';
+import androidSidebarBottom from '../../public/img/androidSidebarBottom.jpeg';
 
 export const LanguageList = [
   {
@@ -372,6 +374,11 @@ export const AdImageInfoMaps: AdImageInfo = {
       width: 750,
       height: 56,
     },
+    matchOverviewBottom: {
+      demoImg: appLive,
+      width: 750,
+      height: 88,
+    },
     sidebarBottom: {
       demoImg: appLive,
       width: 512,
@@ -385,7 +392,7 @@ export const AdImageInfoMaps: AdImageInfo = {
       height: 1160,
     },
     liveMatch: {
-      demoImg: appLive,
+      demoImg: androidLiveMatch,
       width: 750,
       height: 100,
     },
@@ -409,8 +416,13 @@ export const AdImageInfoMaps: AdImageInfo = {
       width: 750,
       height: 56,
     },
-    sidebarBottom: {
+    matchOverviewBottom: {
       demoImg: appLive,
+      width: 750,
+      height: 88,
+    },
+    sidebarBottom: {
+      demoImg: androidSidebarBottom,
       width: 512,
       height: 56,
     },
