@@ -203,6 +203,9 @@ const AdCreate: React.FC<any> = (props) => {
               options={CountryList}
               value={country}
               placeholder="country of delivery"
+              optionFilterProp="children"
+              showSearch
+              filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
               onChange={(e) => setCountry(e)}
             />
           </div>
