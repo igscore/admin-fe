@@ -38,7 +38,7 @@ const App: React.FC = () => {
     setLoading(true);
     getAdList()
       .then((d: any) => {
-        setList(d.result.filter((item: DataType) => item.id === 368 || item.id >= 380));
+        setList(d.result);
         setLoading(false);
       })
       .catch(() => {
