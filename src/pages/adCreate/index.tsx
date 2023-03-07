@@ -177,10 +177,12 @@ const AdCreate: React.FC<any> = (props) => {
           setTitle(result.name);
           setCountry(result.country);
           setPlatform(result.platform);
-          setPosition(result.position);
           setLink(result.imageUrl);
           setJumpUrl(result.jumpUrl);
           setDesc(result.description);
+          setTimeout(() => {
+            setPosition(result.position);
+          });
         }
       });
     }
