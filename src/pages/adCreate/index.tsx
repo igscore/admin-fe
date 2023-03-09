@@ -273,7 +273,7 @@ const AdCreate: React.FC<any> = (props) => {
               withCredentials={true}
             >
               {imageUrl ? (
-                <img src={imageUrl} alt="avatar" style={{ width: '100%' }} />
+                <img src={imageUrl} referrer="no-referrer|origin|unsafe-url" alt="avatar" style={{ width: '100%' }} />
               ) : (
                 <div>
                   {loading ? <LoadingOutlined /> : <PlusOutlined />}
